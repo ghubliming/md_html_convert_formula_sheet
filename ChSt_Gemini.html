@@ -5,10 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ML Cheat Sheet (Ultra-Compact)</title>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet">
     <script>
         window.MathJax = {
-            tex: { inlineMath: [['$', '$'], ['(', ')']], displayMath: [['$$', '$$']] },
+            tex: { 
+                inlineMath: [['$', '$']], 
+                displayMath: [['$$', '$$']],
+                processEscapes: true
+            },
             chtml: { scale: 0.68, displayAlign: 'left' },
             startup: { pageReady: () => MathJax.startup.defaultPageReady() }
         };
@@ -28,7 +32,7 @@
             color: var(--text); font-size: 6.8pt; line-height: 1.02; font-weight: 500;
         }
         
-        mjx-container {
+        mjx-container { 
             font-family: inherit; color: #333 !important; margin: 0 !important; 
             max-width: 100% !important; overflow: hidden !important; white-space: nowrap;
         }
@@ -44,7 +48,7 @@
             column-count: 3; column-gap: 2mm; column-fill: auto; height: 100%; width: 100%;
         }
 
-        h1 {
+        h1 { 
             font-size: 10.5pt; text-align: center; border-bottom: 1.5px solid #444; 
             margin: 0 0 2px 0; font-weight: 700; background-color: #f4f4f4;
             column-span: all; color: #000; padding: 1px;
@@ -56,7 +60,7 @@
             break-after: avoid; page-break-inside: avoid; padding: 1px; color: #000;
         }
         
-        h2 {
+        h2 { 
             font-size: 8pt; border-bottom: 1px solid #888; margin: 1px 0 1px 0; 
             font-weight: 700; padding-left: 2px; break-after: avoid; 
         }
@@ -201,7 +205,7 @@
 <p>&bull; Direction: $w$</p>
 <p>&bull; Distance from origin: $-\frac{w_0}{\|w\|}$</p>
 <p><span class="b">Perceptron Update Rule</span> (for each misclassified $x_i$):</p>
-<p>$w \leftarrow \begin{cases} w + x_i & \text{if } y_i = 1 \\ w - x_i & \text{if } y_i = 0 \end{cases} \quad w_0 \leftarrow \begin{cases} w_0 + 1 & \text{if } y_i = 1 \\ w_0 - 1 & \text{if } y_i = 0 \end{cases}$</p>
+<p>$$w \leftarrow \begin{cases} w + x_i & \text{if } y_i = 1 \\ w - x_i & \text{if } y_i = 0 \end{cases} \quad w_0 \leftarrow \begin{cases} w_0 + 1 & \text{if } y_i = 1 \\ w_0 - 1 & \text{if } y_i = 0 \end{cases}$$</p>
 <p><span class="b">Probabilistic Generative Model</span>:</p>
 <p>&bull; <span class="b">Prior</span>: $y \sim \text{Categorical}(\theta)$, $p(y=c) = \theta_c = \frac{N_c}{N}$, $\sum_c \theta_c = 1$</p>
 <p>&bull; <span class="b">Class-conditional</span>: $p(x | y = c) = \mathcal{N}(x | \mu_c, \Sigma)$ (assume $\Sigma_c$ all equal)</p>
@@ -284,7 +288,7 @@
 <p><span class="b">Gradient of vector</span>: $\nabla_a c = \left( \frac{\partial c}{\partial a} \right)^T = \left[ \frac{\partial c}{\partial a_1}, \frac{\partial c}{\partial a_2}, \dots, \frac{\partial c}{\partial a_m} \right]^T \in \mathbb{R}^{1 \times m}$</p>
 <p><span class="b">Vector chain rule</span>: $\nabla_x c = \left( \frac{\partial a}{\partial x} \right)^T \nabla_a c$</p>
 <p><span class="b">Derivative Dimensions (Output vs. Input)</span>:</p>
-<table><tr><th></th><th><span class="b">scalar</span></th><th><span class="b">vector</span></th><th><span class="b">matrix</span></th></tr><tr><td><span class="b">scalar</span></td><td>scalar</td><td>vector</td><td>matrix</td></tr><tr><td><span class="b">vector</span></td><td>vector</td><td>matrix</td><td>3-way tensor</td></tr><tr><td><span class="b">matrix</span></td><td>matrix</td><td>3-way tensor</td><td>4-way tensor</td></tr></table>
+<table><tr><th></th><th><span class="b">scalar</span></th><th><span class="b">vector</span></th><th><span class="b">matrix</span></th></tr><tr><td><span class="b">scalar</span></td><td>scalar</td><td>vector</td><td>matrix</td></tr></table>
 <p><span class="b">Tensor notation</span>: $\left( \frac{\partial a}{\partial W} \right)_{ijk} = \frac{\partial a_i}{\partial W_{jk}}$</p>
 
 <div class='section-header'>8. CNN & Deep Learning Architecture</div>
@@ -293,13 +297,13 @@
 <p>&bull; <span class="b">VALID</span>: No padding, $D_{l+1} = (D_l - K) + 1$</p>
 <p>&bull; <span class="b">SAME</span>: Add $P = \lfloor \frac{K}{2} \rfloor$ padding on each side to keep size</p>
 <p>&bull; <span class="b">FULL</span>: Add $P = K - 1$ on each side to increase size</p>
-<h3>Stride & Pooling</h3>
+<h3>Stride &amp; Pooling</h3>
 <p><span class="b">Stride</span>: Step size ($>1$ results in downsampling)</p>
 <p>&bull; $D_{l+1} = \lfloor \frac{D_l + 2P - K}{S} \rfloor + 1$</p>
 <p><span class="b">Pooling</span>:</p>
 <p>&bull; <span class="b">Max pooling</span>: Take maximum value</p>
 <p>&bull; <span class="b">Mean pooling</span>: Take average value</p>
-<h3>Initialization & Training Issues</h3>
+<h3>Initialization &amp; Training Issues</h3>
 <p><span class="b">Gradient Problems</span>:</p>
 <p>&bull; <span class="b">Vanishing gradient</span>: $W$ becomes too small</p>
 <p>&bull; <span class="b">Exploding gradient</span>: $W$ becomes too large</p>
@@ -317,7 +321,7 @@
 <p>&bull; <span class="b">Dropout</span>: Used only during training.</p>
 <h3>Batch Normalization</h3>
 <p>&bull; Standardizes inputs to a layer for each mini-batch:</p>
-<p>$\hat{x} = \frac{x - E_B(x)}{\sqrt{\text{Var}_B(x) + \epsilon}} \iff x = \gamma \hat{x} + \beta$</p>
+<p>$$\hat{x} = \frac{x - E_B(x)}{\sqrt{\text{Var}_B(x) + \epsilon}} \iff x = \gamma \hat{x} + \beta$$</p>
 <h3>Residual Learning (Skip Connections)</h3>
 <p>&bull; <span class="b">Skip Connection formula</span>: $y = f(x, W)T(x, W) + x(1 - T(x, W))$</p>
 <p>&bull; This allows gradients to flow through the network more easily, facilitating the training of very deep networks.</p>
@@ -371,14 +375,14 @@
 <p>&bull; ($C \rightarrow \infty$: hard margin)</p>
 <h3>Soft Margin SVM Derivation</h3>
 <p><span class="b">1. Lagrangian Formulation</span>:</p>
-<p>$L(w, b, \xi, \alpha, \mu) = \frac{1}{2} w^T w + C \sum_{i}^{N} \xi_i - \sum_{i}^{N} \alpha_i [y_i(w^T x_i + b) - 1 + \xi_i] - \sum_{i}^{N} \mu_i \xi_i$</p>
+<p>$$L(w, b, \xi, \alpha, \mu) = \frac{1}{2} w^T w + C \sum_{i}^{N} \xi_i - \sum_{i}^{N} \alpha_i [y_i(w^T x_i + b) - 1 + \xi_i] - \sum_{i}^{N} \mu_i \xi_i$$</p>
 <p><span class="b">2. Minimize L (Gradients)</span>:</p>
 <p>&bull; $\frac{\partial L}{\partial w} = w - \sum_{i}^{N} \alpha_i y_i x_i \stackrel{!}{=} 0$</p>
 <p>&bull; $\frac{\partial L}{\partial b} = \sum_{i}^{N} \alpha_i y_i \stackrel{!}{=} 0$</p>
 <p>&bull; $\frac{\partial L}{\partial \xi_i} = C - \alpha_i - \mu_i \stackrel{!}{=} 0 \Rightarrow \alpha_i = C - \mu_i$</p>
 <p>&bull; Since $\mu_i \geq 0$ and $\alpha_i \geq 0$: <span class="b">Box Constraint</span> $\alpha_i \in [0, C]$</p>
 <p><span class="b">3. Maximize Dual Function</span>:</p>
-<p>$g(\alpha) = \sum_{i}^{N} \alpha_i - \frac{1}{2} \sum_{i}^{N} \sum_{j}^{N} y_i y_j \alpha_i \alpha_j x_i^T x_j$</p>
+<p>$$g(\alpha) = \sum_{i}^{N} \alpha_i - \frac{1}{2} \sum_{i}^{N} \sum_{j}^{N} y_i y_j \alpha_i \alpha_j x_i^T x_j$$</p>
 <p><span class="b">Subject to</span>:</p>
 <p>&bull; $\sum_{i}^{N} \alpha_i y_i = 0$</p>
 <p>&bull; $0 \leq \alpha_i \leq C$</p>
@@ -387,7 +391,7 @@
 <p>&bull; If $\alpha_i = C$: $\xi_i > 0$ (point violates margin)</p>
 <p>&bull; Larger $C$ → less tolerance for points inside margin</p>
 <p><span class="b">Hinge Loss</span>:</p>
-<p>$\frac{1}{2} w^T w + C \sum_{i}^{N} \max \{ 0, 1 - y_i(w^T x_i + b) \}$</p>
+<p>$$\frac{1}{2} w^T w + C \sum_{i}^{N} \max \{ 0, 1 - y_i(w^T x_i + b) \}$$</p>
 <h3>Kernel Methods</h3>
 <p><span class="b">Definition</span>: $k(x_i, x_j) = \phi(x_i)^T \phi(x_j)$</p>
 <p><span class="b">Prediction</span>: $h(x) = \text{sign}\left( \sum_{j \in S} \alpha_i y_i k(x_i, x) + b \right)$</p>
@@ -437,7 +441,7 @@
 <p><span class="b">Relationship to Eigenvectors</span>:</p>
 <p>&bull; $V$ contains eigenvectors of $X^T X$</p>
 <p>&bull; $U$ contains eigenvectors of $XX^T$</p></div>
-<div class='box'><h2 class='hl-p'>Matrix Factorization (MF)</h2><h3>1. Fundamentals & Metrics</h3>
+<div class='box'><h2 class='hl-p'>Matrix Factorization (MF)</h2><h3>1. Fundamentals &amp; Metrics</h3>
 <p><span class="b">RMSE</span>: $RMSE = \sqrt{\frac{1}{|S|} \sum (r_{ui} - \hat{r}_{ui})^2}$</p>
 <p><span class="b">SSE</span>: $SSE = \sum (r_{ui} - [U \Sigma V^T]_{ui})^2$</p>
 <p><span class="b">Decomposition</span>: $R = U \Sigma V^T \approx Q \cdot P^T$</p>
@@ -452,12 +456,12 @@
 <p>&bull; $e_{ui} \leftarrow r_{ui} - q_u \cdot p_i^T$</p>
 <p>&bull; $q_u \leftarrow q_u + 2r(e_{ui} p_i)$</p>
 <p>&bull; $p_i \leftarrow p_i + 2r(e_{ui} q_u)$ ($r$: learning rate)</p>
-<h3>4. Extensions: Bias & Regularization</h3>
+<h3>4. Extensions: Bias &amp; Regularization</h3>
 <p><span class="b">Regularized Objective</span>:</p>
-<p>$\sum (r_{ui} - q_u \cdot p_i^T)^2 + \lambda_1 \sum \|q_u\|^2 + \lambda_2 \sum \|p_i\|^2$</p>
+<p>$$\sum (r_{ui} - q_u \cdot p_i^T)^2 + \lambda_1 \sum \|q_u\|^2 + \lambda_2 \sum \|p_i\|^2$$</p>
 <p><span class="b">Full Loss with Bias</span>:</p>
-<p>$L = \sum (r_{ui} - (q_u p_i^T + b_u + b_i + b))^2 + \lambda_1 \sum \|q_u\|^2 + \lambda_2 \sum \|p_i\|^2$</p>
-<p><span class="b">SGD Updates (with Bias & Regularization)</span>:</p>
+<p>$$L = \sum (r_{ui} - (q_u p_i^T + b_u + b_i + b))^2 + \lambda_1 \sum \|q_u\|^2 + \lambda_2 \sum \|p_i\|^2$$</p>
+<p><span class="b">SGD Updates (with Bias &amp; Regularization)</span>:</p>
 <p>1. $e_{ui} = r_{ui} - q_u \cdot p_i^T$</p>
 <p>2. $q_u = q_u + 2r (e_{ui} p_i - \lambda_1 q_u)$</p>
 <p>3. $p_i = p_i + 2r (e_{ui} q_u - \lambda_2 p_i)$</p>
@@ -479,16 +483,16 @@
       +-------------------&gt;               o . . . . . x .
 </pre></div>
 <div class='box'><h2 class='hl-c'>t-SNE</h2><p><span class="b">High-dimensional similarity</span>:</p>
-<p>$p_{j|i} = \frac{\exp(-\frac{\|x_i - x_j\|^2}{2\sigma_i^2})}{\sum_{k \neq i} \exp(-\frac{\|x_i - x_k\|^2}{2\sigma_i^2})}$</p>
+<p>$$p_{j|i} = \frac{\exp(-\frac{\|x_i - x_j\|^2}{2\sigma_i^2})}{\sum_{k \neq i} \exp(-\frac{\|x_i - x_k\|^2}{2\sigma_i^2})}$$</p>
 <p>&bull; <span class="b">Data $X$</span></p>
 <p>&bull; $p_{ii} = 0$, $p_{ij} = \frac{p_{j|i} + p_{i|j}}{2N}$</p>
 <p>&bull; $p_{ij} = p_{ji}$</p>
 <p><span class="b">Low-dimensional similarity</span>:</p>
-<p>$q_{ij} = \frac{(1 + \|y_i - y_j\|^2)^{-1}}{\sum_k \sum_{l \neq k} (1 + \|y_k - y_l\|^2)^{-1}}$</p>
+<p>$$q_{ij} = \frac{(1 + \|y_i - y_j\|^2)^{-1}}{\sum_k \sum_{l \neq k} (1 + \|y_k - y_l\|^2)^{-1}}$$</p>
 <p>&bull; <span class="b">Target $y$</span></p>
 <p>&bull; $q_{ii} = 0$</p>
 <p><span class="b">Next: minimize KL Divergence</span></p>
-<p>$\sum_i \sum_{j \neq i} p_{ij} \log \frac{p_{ij}}{q_{ij}} = KL(P||Q)$</p>
+<p>$$\sum_i \sum_{j \neq i} p_{ij} \log \frac{p_{ij}}{q_{ij}} = KL(P||Q)$$</p>
 <p>&bull; $KL(P||Q) \geq 0$, $= 0$ iff $P=Q$</p>
 <p><span class="b">Divergence Behavior</span>:</p>
 <p>Plaintext</p>
@@ -522,7 +526,7 @@ ___/_____\___\_
 <div class='section-header'>12. Clustering</div>
 <h3>K-means: Objective (Distortion Measure)</h3>
 <p>&bull; <span class="b">Formula</span>:</p>
-<p>$J(X, Z, \mu) = \sum_{i}^{N} \sum_{k}^{K} z_{ik} \|x_i - \mu_k\|^2$</p>
+<p>$$J(X, Z, \mu) = \sum_{i}^{N} \sum_{k}^{K} z_{ik} \|x_i - \mu_k\|^2$$</p>
 <p>&bull; <span class="b">Indicator Variable</span>:</p>
 <p>&bull; $z_i = \{0, 0, 1, 0, 0, 0\}$ implies sample $i$ belongs to class 3.</p>
 <h3>Lloyd's Algorithm (Alternating Optimization)</h3>
@@ -541,7 +545,7 @@ ___/_____\___\_
 <p>5. Repeat steps 3 and 4 until $K$ centers are chosen.</p>
 
 <div class='box'><h2 class='hl-p'>Gaussian Mixture Model (GMM)</h2><p><span class="b">Model Definition</span>:</p>
-<p>$p(x|\theta) = \sum_z p(x|z, \theta)p(z|\theta)$</p>
+<p>$$p(x|\theta) = \sum_z p(x|z, \theta)p(z|\theta)$$</p>
 <p>&bull; <span class="b">$z$ is latent variables</span></p>
 <p>&bull; <span class="b">Optimization Goal</span>: $\theta^* = \text{argmax}_{\theta} p(x|\theta)$</p>
 <p><span class="b">Distributions</span>:</p>
@@ -557,19 +561,19 @@ ___/_____\___\_
 <p>1. <span class="b">Sample class</span> according to $\pi = (\pi_1, \pi_2, ..., \pi_K)$</p>
 <p>2. <span class="b">Generate $x$</span> according to $x \sim \mathcal{N}(\mu_k, \Sigma_k)$ (Probability Density)</p>
 <p><span class="b">Marginal Probability</span>:</p>
-<p>$p(x|\pi, \mu, \Sigma) = \sum_i^K \pi_k \cdot \mathcal{N}(x|\mu_k, \Sigma_k)$</p>
+<p>$$p(x|\pi, \mu, \Sigma) = \sum_i^K \pi_k \cdot \mathcal{N}(x|\mu_k, \Sigma_k)$$</p>
 <p><span class="b">Log-Likelihood</span>:</p>
-<p>$\log p(X|\pi, \mu, \Sigma) = \sum_i^N \log \left( \sum_k^K \pi_k \cdot \mathcal{N}(x_i|\mu_k, \Sigma_k) \right)$</p>
+<p>$$\log p(X|\pi, \mu, \Sigma) = \sum_i^N \log \left( \sum_k^K \pi_k \cdot \mathcal{N}(x_i|\mu_k, \Sigma_k) \right)$$</p>
 <h3>Inference</h3>
 <p>Calculating the <span class="b">responsibility</span> of component $k$ for observation $i$:</p>
-<p>$p(z_{ik}=1 | x_i, \pi, \mu, \Sigma) = \frac{\pi_k \mathcal{N}(x_i|\mu_k, \Sigma_k)}{\sum_j^K \pi_j \mathcal{N}(x_i|\mu_j, \Sigma_j)}$</p>
+<p>$$p(z_{ik}=1 | x_i, \pi, \mu, \Sigma) = \frac{\pi_k \mathcal{N}(x_i|\mu_k, \Sigma_k)}{\sum_j^K \pi_j \mathcal{N}(x_i|\mu_j, \Sigma_j)}$$</p>
 <p><span class="b">Notation</span>:</p>
-<p>$\gamma(z_{ik}) = p(z_{ik}=1 | x_i, \pi, \mu, \Sigma)$</p></div>
+<p>$$\gamma(z_{ik}) = p(z_{ik}=1 | x_i, \pi, \mu, \Sigma)$$</p></div>
 <div class='box'><h2 class='hl-y'>Expectation Maximization (EM) for GMM</h2><p><span class="b">Learning Process</span>:</p>
 <p>1. <span class="b">Initialize</span>: $\pi^0, \mu_1^0...\mu_K^0, \Sigma_1^0...\Sigma_K^0$</p>
 <p>2. <span class="b">E-step (Expectation)</span>:</p>
 <p>Calculate the responsibility (posterior probability):</p>
-<p>$\gamma_t(z_{ik}) = \frac{\pi_k^t \mathcal{N}(x_i|\mu_k^t, \Sigma_k^t)}{\sum_j^K \pi_j^t \mathcal{N}(x_i|\mu_j^t, \Sigma_j^t)}$</p>
+<p>$$\gamma_t(z_{ik}) = \frac{\pi_k^t \mathcal{N}(x_i|\mu_k^t, \Sigma_k^t)}{\sum_j^K \pi_j^t \mathcal{N}(x_i|\mu_j^t, \Sigma_j^t)}$$</p>
 <p>&bull; _Note_: E-step evaluates the posterior $p(z|x, \theta^t)$.</p>
 <p>3. <span class="b">M-step (Maximization)</span>:</p>
 <p>Update parameters to maximize expected joint probability:</p>

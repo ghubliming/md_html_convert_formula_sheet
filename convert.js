@@ -3,17 +3,21 @@ const fs = require('fs');
 const inputFile = 'V4_Exam CheatSheet Template Version (WS24_Retake-ML).md';
 const outputFile = 'ChSt_Gemini.html';
 
-const htmlHead = `
+const htmlHeadPart1 = `
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ML Cheat Sheet (Ultra-Compact)</title>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet">
     <script>
         window.MathJax = {
-            tex: { inlineMath: [['$', '$'], ['\(', '\)']], displayMath: [['$$', '$$']] },
+            tex: { 
+                inlineMath: [['$', '$']], 
+                displayMath: [['$$', '$$']],
+                processEscapes: true
+            },
             chtml: { scale: 0.68, displayAlign: 'left' },
             startup: { pageReady: () => MathJax.startup.defaultPageReady() }
         };
@@ -33,7 +37,7 @@ const htmlHead = `
             color: var(--text); font-size: 6.8pt; line-height: 1.02; font-weight: 500;
         }
         
-        mjx-container {
+        mjx-container { 
             font-family: inherit; color: #333 !important; margin: 0 !important; 
             max-width: 100% !important; overflow: hidden !important; white-space: nowrap;
         }
@@ -49,7 +53,7 @@ const htmlHead = `
             column-count: 3; column-gap: 2mm; column-fill: auto; height: 100%; width: 100%;
         }
 
-        h1 {
+        h1 { 
             font-size: 10.5pt; text-align: center; border-bottom: 1.5px solid #444; 
             margin: 0 0 2px 0; font-weight: 700; background-color: #f4f4f4;
             column-span: all; color: #000; padding: 1px;
@@ -61,7 +65,7 @@ const htmlHead = `
             break-after: avoid; page-break-inside: avoid; padding: 1px; color: #000;
         }
         
-        h2 {
+        h2 { 
             font-size: 8pt; border-bottom: 1px solid #888; margin: 1px 0 1px 0; 
             font-weight: 700; padding-left: 2px; break-after: avoid; 
         }
@@ -98,38 +102,27 @@ const htmlHead = `
     </style>
 </head>
 <body>
-`
+`;
 
 function processInline(text) {
     if (!text) return '';
-    
     let placeholders = [];
-    
-    // Protect Display Math $$...$$
     text = text.replace(/\$\$(.*?)\$\$/g, (match, content) => {
         const placeholder = `___MATH_DISPLAY_${placeholders.length}___`;
         placeholders.push({ placeholder, original: match });
         return placeholder;
     });
-    
-    // Protect Inline Math $...$
-    // Using a more careful regex for inline math to avoid matching across multiple lines if split incorrectly
     text = text.replace(/\$(.*?)\$/g, (match, content) => {
         const placeholder = `___MATH_INLINE_${placeholders.length}___`;
         placeholders.push({ placeholder, original: match });
         return placeholder;
     });
-
-    // Bold: ** -> <span class="b">
+    text = text.replace(/&/g, '&amp;');
     text = text.replace(/\*\*(.*?)\*\*/g, '<span class="b">$1</span>');
-    // Italics: * -> <i>
     text = text.replace(/\*(.*?)\*/g, '<i>$1</i>');
-    
-    // Restore math
     for (let i = placeholders.length - 1; i >= 0; i--) {
-        text = text.replace(placeholders[i].placeholder, placeholders[i].original);
+        text = text.replace(placeholders[i].placeholder, () => placeholders[i].original);
     }
-    
     return text;
 }
 
@@ -153,7 +146,6 @@ function flushBox() {
 
 for (let i = 0; i < lines.length; i++) {
     let line = lines[i].trimEnd();
-    
     if (line.trim().startsWith('```')) {
         if (inCodeBlock) {
             if (currentBox) {
@@ -162,26 +154,16 @@ for (let i = 0; i < lines.length; i++) {
             }
             inCodeBlock = false;
             codeContent = '';
-        } else {
-            inCodeBlock = true;
-        }
+        } else { inCodeBlock = true; }
         continue;
     }
-    
-    if (inCodeBlock) {
-        codeContent += line + '\n';
-        continue;
-    }
-    
+    if (inCodeBlock) { codeContent += line + '\n'; continue; }
     const stripped = line.trim();
-    
     if (stripped.startsWith('# ') && !stripped.startsWith('##')) {
         pagesContent[currentPageIdx].push(flushBox());
         currentBox = null;
         const title = stripped.substring(2).trim();
-        if (title.startsWith('9.') || title.startsWith('9 ')) {
-            currentPageIdx = 1;
-        }
+        if (title.startsWith('9.') || title.startsWith('9 ')) { currentPageIdx = 1; }
         pagesContent[currentPageIdx].push(`<div class='section-header'>${title}</div>`);
     } else if (stripped.startsWith('## ')) {
         pagesContent[currentPageIdx].push(flushBox());
@@ -194,40 +176,26 @@ for (let i = 0; i < lines.length; i++) {
         else pagesContent[currentPageIdx].push(`<h3>${text}</h3>`);
     } else if (stripped.startsWith('|')) {
         let tableLines = [];
-        while (i < lines.length && lines[i].trim().startsWith('|')) {
-            tableLines.push(lines[i].trim());
-            i++;
-        }
+        while (i < lines.length && lines[i].trim().startsWith('|')) { tableLines.push(lines[i].trim()); i++; }
         i--;
-        
         let rows = [];
         for (let tl of tableLines) {
-            // Improved separator check
-            if (/^\|[ :\-\s|]+\|$/.test(tl) && tl.includes('-')) continue;
-            
-            // Handle escaped pipes
+            if (/^|[ :-\s|]+\|$/.test(tl) && tl.includes('-')) continue;
             let t = tl.replace(/\\\|/g, '___ESCAPED_PIPE___');
-            
-            // Remove outer pipes
             if (t.startsWith('|')) t = t.substring(1);
             if (t.endsWith('|')) t = t.substring(0, t.length - 1);
-            
-            // Split by |
             const cells = t.split('|').map(c => {
                 let val = c.trim().replace(/___ESCAPED_PIPE___/g, '|');
                 return processInline(val);
             });
             rows.push(cells);
         }
-        
         if (rows.length > 0) {
             let tblHtml = '<table>';
             for (let j = 0; j < rows.length; j++) {
                 const tag = (j === 0) ? 'th' : 'td';
                 tblHtml += '<tr>';
-                for (let cell of rows[j]) {
-                    tblHtml += `<${tag}>${cell}</${tag}>`;
-                }
+                for (let cell of rows[j]) { tblHtml += `<${tag}>${cell}</${tag}>`; } 
                 tblHtml += '</tr>';
             }
             tblHtml += '</table>';
@@ -236,20 +204,15 @@ for (let i = 0; i < lines.length; i++) {
         }
     } else if (stripped.length > 0 && !stripped.startsWith('---')) {
         let c = processInline(stripped);
-        if (c.startsWith('- ')) {
-            c = '&bull; ' + c.substring(2);
-        }
+        if (c.startsWith('- ')) { c = '&bull; ' + c.substring(2); }
         if (currentBox) currentBox.content.push(`<p>${c}</p>`);
         else pagesContent[currentPageIdx].push(`<p>${c}</p>`);
     }
 }
-
 pagesContent[currentPageIdx].push(flushBox());
-
-let finalHtml = htmlHead;
+let finalHtml = htmlHeadPart1;
 finalHtml += `<div class='page'><div class='columns'><h1>Page 1: Supervised &amp; All Deep Learning (Sec 2-8)</h1>${pagesContent[0].join('\n')}</div></div>`;
 finalHtml += `<div class='page'><div class='columns'><h1>Page 2: SVM, Unsupervised &amp; Misc (Sec 9-12)</h1>${pagesContent[1].join('\n')}</div></div>`;
 finalHtml += '</body></html>';
-
 fs.writeFileSync(outputFile, finalHtml, 'utf-8');
 console.log(`Done! Generated ${outputFile}`);
