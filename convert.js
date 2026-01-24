@@ -1,45 +1,5 @@
-# METHODOLOGY V4: The "Ultra-Compact Split" Workflow (Node.js Edition)
-
-## 1. Overview
-This workflow converts a structured Markdown cheat sheet into a **strictly formatted 2-page HTML document** designed for printing. It solves the problem of "overflowing content" by using a **hardcoded section split** and **ultra-compact styling**.
-
-**Key Features:**
-*   **Robust Table Parsing:** Correctly handles inline formatting (bold, italics) and ignores separator rows.
-*   **Math Protection:** Prevents LaTeX equations from being corrupted by Markdown parsers.
-*   **Node.js Powered:** Uses JavaScript for reliable string manipulation and regex handling.
-
-## 2. The Winning Configuration
-To achieve the result where "All Deep Learning (Sec 2-8)" fits on Page 1 and "SVM + Unsupervised (Sec 9-Misc)" fits on Page 2, we use these specific settings:
-
-*   **Layout:** 3 Columns per page.
-*   **Page 1 Content:** Sections 2, 3, 4, 5, 6, 7, 8.
-*   **Page 2 Content:** Sections 9, 10, 11, 12, Misc.
-*   **Font Size:** `6.8pt` (Caveat font).
-*   **MathJax Scale:** `0.68` (Prevents horizontal blowout).
-*   **ASCII Diagrams:** Reduced to `4pt` font to fit columns.
-*   **Scrollbars:** Globally disabled to ensure clean PDF export.
-
----
-
-## 3. Replication Instruction (The Script)
-
-**Pre-requisites:**
-1.  **Node.js**: Ensure Node.js is installed on your system.
-2.  **Input File**: Have your markdown file ready (default: `V4_Exam CheatSheet Template Version (WS24_Retake-ML).md`).
-
-### 🚀 Execution
-Run the following command in your terminal:
-```bash
-node convert.js
-```
-
-### 📜 The Generator Script (`convert.js`)
-Save the following code as `convert.js`:
-
-```javascript
 const fs = require('fs');
 
-// --- CONFIGURATION ---
 const inputFile = 'V4_Exam CheatSheet Template Version (WS24_Retake-ML).md';
 const outputFile = 'ChSt_Gemini.html';
 
@@ -50,10 +10,10 @@ const htmlHead = `
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ML Cheat Sheet (Ultra-Compact)</title>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&amp;display=swap" rel="stylesheet">
     <script>
         window.MathJax = {
-            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$']] },
+            tex: { inlineMath: [['$', '$'], ['\(', '\)']], displayMath: [['$$', '$$']] },
             chtml: { scale: 0.68, displayAlign: 'left' },
             startup: { pageReady: () => MathJax.startup.defaultPageReady() }
         };
@@ -73,7 +33,7 @@ const htmlHead = `
             color: var(--text); font-size: 6.8pt; line-height: 1.02; font-weight: 500;
         }
         
-        mjx-container { 
+        mjx-container {
             font-family: inherit; color: #333 !important; margin: 0 !important; 
             max-width: 100% !important; overflow: hidden !important; white-space: nowrap;
         }
@@ -89,7 +49,7 @@ const htmlHead = `
             column-count: 3; column-gap: 2mm; column-fill: auto; height: 100%; width: 100%;
         }
 
-        h1 { 
+        h1 {
             font-size: 10.5pt; text-align: center; border-bottom: 1.5px solid #444; 
             margin: 0 0 2px 0; font-weight: 700; background-color: #f4f4f4;
             column-span: all; color: #000; padding: 1px;
@@ -101,7 +61,7 @@ const htmlHead = `
             break-after: avoid; page-break-inside: avoid; padding: 1px; color: #000;
         }
         
-        h2 { 
+        h2 {
             font-size: 8pt; border-bottom: 1px solid #888; margin: 1px 0 1px 0; 
             font-weight: 700; padding-left: 2px; break-after: avoid; 
         }
@@ -138,7 +98,7 @@ const htmlHead = `
     </style>
 </head>
 <body>
-`;
+`
 
 function processInline(text) {
     if (!text) return '';
@@ -153,6 +113,7 @@ function processInline(text) {
     });
     
     // Protect Inline Math $...$
+    // Using a more careful regex for inline math to avoid matching across multiple lines if split incorrectly
     text = text.replace(/\$(.*?)\$/g, (match, content) => {
         const placeholder = `___MATH_INLINE_${placeholders.length}___`;
         placeholders.push({ placeholder, original: match });
@@ -241,8 +202,8 @@ for (let i = 0; i < lines.length; i++) {
         
         let rows = [];
         for (let tl of tableLines) {
-            // Improved separator check: matches lines with only | : - and whitespace, must contain at least one -
-            if (/^\|[ :\-\s|]+\$/.test(tl) && tl.includes('-')) continue;
+            // Improved separator check
+            if (/^\|[ :\-\s|]+\|$/.test(tl) && tl.includes('-')) continue;
             
             // Handle escaped pipes
             let t = tl.replace(/\\\|/g, '___ESCAPED_PIPE___');
@@ -286,22 +247,9 @@ for (let i = 0; i < lines.length; i++) {
 pagesContent[currentPageIdx].push(flushBox());
 
 let finalHtml = htmlHead;
-finalHtml += `<div class='page'><div class='columns'><h1>Page 1: Supervised & All Deep Learning (Sec 2-8)</h1>${pagesContent[0].join('\n')}</div></div>`;
-finalHtml += `<div class='page'><div class='columns'><h1>Page 2: SVM, Unsupervised & Misc (Sec 9-12)</h1>${pagesContent[1].join('\n')}</div></div>`;
+finalHtml += `<div class='page'><div class='columns'><h1>Page 1: Supervised &amp; All Deep Learning (Sec 2-8)</h1>${pagesContent[0].join('\n')}</div></div>`;
+finalHtml += `<div class='page'><div class='columns'><h1>Page 2: SVM, Unsupervised &amp; Misc (Sec 9-12)</h1>${pagesContent[1].join('\n')}</div></div>`;
 finalHtml += '</body></html>';
 
 fs.writeFileSync(outputFile, finalHtml, 'utf-8');
 console.log(`Done! Generated ${outputFile}`);
-```
-
-## 4. Final Verification Checklist
-1.  **Open** the generated HTML in Chrome/Edge.
-2.  **Wait** 1 second for MathJax to render.
-3.  **Print (Ctrl + P)**:
-    *   **Margins:** Set to **None**.
-    *   **Background Graphics:** **Checked**.
-    *   **Scale:** **100%**.
-4.  **Verify**:
-    *   Page 1 should end exactly after the CNN section.
-    *   Page 2 should start with SVM.
-    *   Tables should handle `|` separators correctly and bold text should appear.
