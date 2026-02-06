@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ML Cheat Sheet (Ultra-Compact)</title>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&amp;display=swap" rel="stylesheet">
     <script>
         window.MathJax = {
             tex: { 
@@ -29,597 +29,677 @@
         
         body { 
             font-family: 'Caveat', cursive; margin: 0; padding: 0; background: #888; 
-            color: var(--text); font-size: 6.8pt; line-height: 1.02; font-weight: 500;
+            color: var(--text); font-size: 7.1pt; line-height: 1.02; font-weight: 500;
         }
         
         mjx-container { 
             font-family: inherit; color: #333 !important; margin: 0 !important; 
-            max-width: 100% !important; overflow: hidden !important; white-space: nowrap;
+            max-width: 100% !important; overflow-x: auto !important; overflow-y: hidden !important;
         }
         
         p, li, div, h1, h2, h3 { word-wrap: break-word; overflow-wrap: break-word; }
 
         .page {
-            width: 200mm; height: 292mm; background: white; margin: 10px auto; 
-            padding: 3mm; position: relative; overflow: hidden; 
+            width: 210mm; height: 297mm; background: white; margin: 10px auto; 
+            padding: 2mm; position: relative; overflow: hidden; 
         }
         
         .columns {
-            column-count: 3; column-gap: 2mm; column-fill: auto; height: 100%; width: 100%;
-        }
-
-        h1 { 
-            font-size: 10.5pt; text-align: center; border-bottom: 1.5px solid #444; 
-            margin: 0 0 2px 0; font-weight: 700; background-color: #f4f4f4;
-            column-span: all; color: #000; padding: 1px;
+            column-count: 4; column-gap: 1.2mm; height: 100%; width: 100%;
+            column-fill: auto;
         }
 
         .section-header {
-            font-size: 8.5pt; text-align: center; border: 1px solid #666;
-            margin: 3px 0 1px 0; font-weight: 700; background: #eee;
-            break-after: avoid; page-break-inside: avoid; padding: 1px; color: #000;
+            font-size: 10pt; text-align: center; border: 1.2px solid #333;
+            margin: 1.5px 0; font-weight: 700; background: #eee;
+            padding: 0.5px; color: #000; break-inside: avoid;
+            width: 100%;
         }
-        
-        h2 { 
-            font-size: 8pt; border-bottom: 1px solid #888; margin: 1px 0 1px 0; 
-            font-weight: 700; padding-left: 2px; break-after: avoid; 
-        }
-        
-        h3 { font-size: 7.5pt; margin: 1px 0 0px 0; font-weight: 700; text-decoration: underline; }
-        p, li { margin: 0; }
         
         .box {
-            break-inside: avoid; margin-bottom: 2px; padding-bottom: 1px;
-            border-bottom: 0.5px dashed #ccc; position: relative; max-width: 100%; 
+            break-inside: avoid; margin-bottom: 1px;
+            width: 100%; max-width: 100%;
+        }
+
+        h2 { 
+            font-size: 9pt; border-bottom: 1px solid #666; margin: 1px 0; 
+            font-weight: 700; padding-left: 2px;
         }
         
-        .hl-y { background: var(--hl-y); padding: 0 2px; border-radius: 2px; }
-        .hl-c { background: var(--hl-c); padding: 0 2px; border-radius: 2px; }
-        .hl-g { background: var(--hl-g); padding: 0 2px; border-radius: 2px; }
-        .hl-p { background: var(--hl-p); padding: 0 2px; border-radius: 2px; }
+        h3 { 
+            font-size: 8.2pt; margin: 1px 0 0.2px 0; font-weight: 700; 
+            text-decoration: underline;
+        }
+        
+        p, li { margin: 0; }
+        
+        .hl-y { background: var(--hl-y); padding: 0 1px; border-radius: 1px; }
+        .hl-c { background: var(--hl-c); padding: 0 1px; border-radius: 1px; }
+        .hl-g { background: var(--hl-g); padding: 0 1px; border-radius: 1px; }
+        .hl-p { background: var(--hl-p); padding: 0 1px; border-radius: 1px; }
         
         .b { font-weight: 700; }
         
-        table { border-collapse: collapse; width: 100%; font-size: 0.9em; margin: 2px 0; }
-        td, th { border: 0.5px solid #666; padding: 0 2px; text-align: center; }
+        table { 
+            border-collapse: collapse; width: 100%; font-size: 0.85em; margin: 1px 0; 
+            table-layout: fixed; word-break: break-all;
+        }
+        td, th { border: 0.5px solid #555; padding: 0 0.5px; text-align: center; }
         
         pre {
-            font-family: monospace; font-size: 4pt; line-height: 0.85;
+            font-family: monospace; font-size: 4.5pt; line-height: 0.9;
             letter-spacing: -0.1px; white-space: pre-wrap; word-break: break-all;
-            margin: 1px 0; background: #f8f8f8; padding: 1px; border: 0.5px solid #eee;
-            color: #444; max-width: 100%; overflow: hidden !important; 
+            margin: 1px 0; background: #f8f8f8; padding: 1px; border: 0.5px solid #ddd;
+            color: #333; max-width: 100%;
         }
 
         @media print {
             body { background: white; }
-            .page { margin: 0 auto; border: none; page-break-after: always; }
+            .page { margin: 0; border: none; page-break-after: always; }
         }
     </style>
 </head>
 <body>
-<div class='page'><div class='columns'><h1>Page 1: Supervised &amp; All Deep Learning (Sec 2-8)</h1>
-<div class='section-header'>2. DT KNN</div>
-
-<div class='box'><h2 class='hl-y'>Decision Tree</h2><p><span class="b">Impurity Measures</span>:</p>
-<p>&bull; <span class="b">Misclassification rate</span>: $i_E(t) = 1 - \max_c \pi_c$</p>
-<p>&bull; <span class="b">Entropy (Shannon)</span>: $i_H(t) = - \sum_{c_i} \pi_{ci} \log_2 \pi_{ci}$</p>
-<p>&bull; <span class="b">Gini index</span>: $i_{G}(t) = 1 - \sum_{c_i} \pi_{ci}^2$</p>
-<p><span class="b">Greedy Optimization</span>: Use $i_H(t)$ or $i_G(t)$ (not $i_E(t)$, which doesn't decrease impurity)</p>
-<p><span class="b">Information Gain</span>:</p>
-<p>&bull; $p_L = \frac{N_{left}}{N} \quad p_R = \frac{N_{right}}{N}$</p>
-<p>&bull; $\Delta i = i(t) - p_L \cdot i(t_L) - p_R \cdot i(t_R)$</p>
-<p><span class="b">Stopping Conditions</span>: $i(t)=0$ / $d_{max}$ / $N_{node} < t_n$ / $\Delta i(s,t) < t_s$</p>
-<p><span class="b">LOOCV</span>: Equivalent to N-fold cross-validation</p></div>
-<div class='box'><h2 class='hl-c'>KNN</h2><p><span class="b">Prediction</span>: $\hat{y} = \arg\max_c \sum_{x_i \in N_k(x)} \mathbb{I}(y_i = c)$</p>
-<p><span class="b">Distance Metrics</span>:</p>
-<p>&bull; <span class="b">L1 (Manhattan)</span>: $d(x_1, x_2) = \sum_{d} |x_{1d} - x_{2d}|$</p>
-<p>&bull; <span class="b">L2 (Euclidean)</span>: $d(x_1, x_2) = \sqrt{\sum_{d} (x_{1d} - x_{2d})^2}$</p>
-<p>&bull; <span class="b">L$\infty$</span>: $d(x_1, x_2) = \max_{d} |x_{1d} - x_{2d}|$</p>
-<p>&bull; <span class="b">Cosine Similarity</span>: $\text{Sim}(x_1, x_2) = \frac{x_1^T x_2}{\|x_1\| \|x_2\|}$</p>
-<p>&bull; <span class="b">Mahalanobis Distance</span>: $\sqrt{(x_1 - x_2)^T \Sigma^{-1} (x_1 - x_2)}$ ($\Sigma$ positive semi-definite, symmetric)</p>
-<p><span class="b">Weighted KNN</span> (inverse distance weighting, closer points more important):</p>
-<p>&bull; $\hat{y} = \arg\max_c \frac{1}{k} \sum_{x_i \in N_k(x)} \frac{1}{d(x_i, x)} \mathbb{I}(y_i = c)$</p>
-<p><span class="b">Hyperparameter Selection</span>:</p>
-<p>&bull; k small → overfitting</p>
-<p>&bull; k large → underfitting</p>
-<p>&bull; Use odd number to avoid ties</p>
-<p><span class="b">Scale Issue</span>: Normalization $x_f = \frac{x_i - \mu_i}{\sigma_i}$ (or use weighted distance)</p></div>
-<div class='box'><h2 class='hl-g'>Confusion Matrix</h2><table><tr><th><span class="b">Ground \ Predict</span></th><th><span class="b">1</span></th><th><span class="b">0</span></th></tr><tr><td><span class="b">1</span></td><td>TP</td><td>FN</td></tr><tr><td><span class="b">0</span></td><td>FP</td><td>TN</td></tr></table>
-<p><span class="b">Metrics</span>:</p>
-<p>&bull; <span class="b">Precision</span>: $\frac{TP}{TP + FP}$</p>
-<p>&bull; <span class="b">Sensitivity/Recall</span>: $\frac{TP}{TP + FN}$</p>
-<p>&bull; <span class="b">Accuracy</span>: $\frac{TP + TN}{TP + TN + FP + FN}$</p>
-<p>&bull; <span class="b">F1 Score</span>: $\frac{2 \cdot \text{prec} \cdot \text{rec}}{\text{prec} + \text{rec}}$</p></div>
+<div class='page'><div class='columns'><div class='section-header'>2. DT KNN</div>
+<div class="box"><h2 class="hl-y">Decision Tree</h2></div>
+<div class="box"><p><span class="b">Impurity Measures</span>:</p></div>
+<div class="box"><p>&bull; <span class="b">Misclassification rate</span>: $i_E(t) = 1 - \max_c \pi_c$</p></div>
+<div class="box"><p>&bull; <span class="b">Entropy (Shannon)</span>: $i_H(t) = - \sum_{c_i} \pi_{ci} \log_2 \pi_{ci}$</p></div>
+<div class="box"><p>&bull; <span class="b">Gini index</span>: $i_{G}(t) = 1 - \sum_{c_i} \pi_{ci}^2$</p></div>
+<div class="box"><p><span class="b">Greedy Optimization</span>: Use $i_H(t)$ or $i_G(t)$ (not $i_E(t)$, which doesn't decrease impurity)</p></div>
+<div class="box"><p><span class="b">Information Gain</span>:</p></div>
+<div class="box"><p>&bull; $p_L = \frac{N_{left}}{N} \quad p_R = \frac{N_{right}}{N}$</p></div>
+<div class="box"><p>&bull; $\Delta i = i(t) - p_L \cdot i(t_L) - p_R \cdot i(t_R)$</p></div>
+<div class="box"><p><span class="b">Stopping Conditions</span>: $i(t)=0$ / $d_{max}$ / $N_{node} < t_n$ / $\Delta i(s,t) < t_s$</p></div>
+<div class="box"><p><span class="b">LOOCV</span>: Equivalent to N-fold cross-validation</p></div>
+<div class="box"><h2 class="hl-c">KNN</h2></div>
+<div class="box"><p><span class="b">Prediction</span>: $\hat{y} = \arg\max_c \sum_{x_i \in N_k(x)} \mathbb{I}(y_i = c)$</p></div>
+<div class="box"><p><span class="b">Distance Metrics</span>:</p></div>
+<div class="box"><p>&bull; <span class="b">L1 (Manhattan)</span>: $d(x_1, x_2) = \sum_{d} |x_{1d} - x_{2d}|$</p></div>
+<div class="box"><p>&bull; <span class="b">L2 (Euclidean)</span>: $d(x_1, x_2) = \sqrt{\sum_{d} (x_{1d} - x_{2d})^2}$</p></div>
+<div class="box"><p>&bull; <span class="b">L$\infty$</span>: $d(x_1, x_2) = \max_{d} |x_{1d} - x_{2d}|$</p></div>
+<div class="box"><p>&bull; <span class="b">Cosine Similarity</span>: $\text{Sim}(x_1, x_2) = \frac{x_1^T x_2}{\|x_1\| \|x_2\|}$</p></div>
+<div class="box"><p>&bull; <span class="b">Mahalanobis Distance</span>: $\sqrt{(x_1 - x_2)^T \Sigma^{-1} (x_1 - x_2)}$ ($\Sigma$ positive semi-definite, symmetric)</p></div>
+<div class="box"><p><span class="b">Weighted KNN</span> (inverse distance weighting, closer points more important):</p></div>
+<div class="box"><p>&bull; $\hat{y} = \arg\max_c \frac{1}{k} \sum_{x_i \in N_k(x)} \frac{1}{d(x_i, x)} \mathbb{I}(y_i = c)$</p></div>
+<div class="box"><p><span class="b">Hyperparameter Selection</span>:</p></div>
+<div class="box"><p>&bull; k small → overfitting</p></div>
+<div class="box"><p>&bull; k large → underfitting</p></div>
+<div class="box"><p>&bull; Use odd number to avoid ties</p></div>
+<div class="box"><p><span class="b">Scale Issue</span>: Normalization $x_f = \frac{x_i - \mu_i}{\sigma_i}$ (or use weighted distance)</p></div>
+<div class="box"><h2 class="hl-g">Confusion Matrix</h2></div>
+<div class="box"><table><tr><th><span class="b">Ground \ Predict</span></th><th><span class="b">1</span></th><th><span class="b">0</span></th></tr><tr><td><span class="b">1</span></td><td>TP</td><td>FN</td></tr><tr><td><span class="b">0</span></td><td>FP</td><td>TN</td></tr></table></div>
+<div class="box"><p><span class="b">Metrics</span>:</p></div>
+<div class="box"><p>&bull; <span class="b">Precision</span>: $\frac{TP}{TP + FP}$</p></div>
+<div class="box"><p>&bull; <span class="b">Sensitivity/Recall</span>: $\frac{TP}{TP + FN}$</p></div>
+<div class="box"><p>&bull; <span class="b">Accuracy</span>: $\frac{TP + TN}{TP + TN + FP + FN}$</p></div>
+<div class="box"><p>&bull; <span class="b">F1 Score</span>: $\frac{2 \cdot \text{prec} \cdot \text{rec}}{\text{prec} + \text{rec}}$</p></div>
 <div class='section-header'>3. Prob Method</div>
-
-<div class='box'><h2 class='hl-p'>Probabilistic Inference</h2><p><span class="b">Maximum Likelihood Estimation (MLE)</span>:</p>
-<p>&bull; $\theta_{MLE} = \arg \max_{\theta} p(D | \theta)$</p>
-<p>&bull; $p(D | \theta) = \prod_{i}^{N} p(x_i | \theta)$</p>
-<p>&bull; $E_{MLE} = - \ln p(D | \theta) = - \sum_{i}^{N} \ln p(x_i | \theta)$</p>
-<p>&bull; $\theta_{MLE} = \frac{|T|}{|T| + |H|}$</p>
-<p><span class="b">Maximum A Posteriori (MAP)</span>:</p>
-<p>&bull; $\theta_{MAP} = \arg \max_{\theta} p(\theta | D)$</p>
-<p>&bull; $p(\theta | D) \propto p(D | \theta) p(\theta)$</p>
-<p>&bull; $E_{MAP} = - (|T| + a - 1) \ln \theta - (|H| + b - 1) \ln(1 - \theta)$</p>
-<p>&bull; $\theta_{MAP} = \frac{|T| + a - 1}{|T| + |H| + a + b - 2}$</p>
-<p>&bull; When $a = b = 1$: $\theta_{MAP} = \theta_{MLE}$</p>
-<p><span class="b">Posterior</span>: $P(\theta | D) = \text{Beta}(\theta | a + |T|, b + |H|)$</p></div>
-<div class='box'><h2 class='hl-y'>Hoeffding's Inequality</h2><p>$p(|\theta_{MLE} - \theta_{\text{true}}| \ge \epsilon) \le 2e^{-2N\epsilon^2} \le \delta$</p></div>
-<div class='box'><h2 class='hl-c'>Bayesian Models</h2><p><span class="b">Predictive Distribution</span>: $p(f | D, a, b) = \int_{0}^{1} p(f | \theta) p(\theta | D, a, b) d\theta$</p>
-<p><span class="b">Fully Bayesian</span>: $\theta^* = \frac{|T| + a}{|T| + |H| + a + b} \equiv \text{Ber}(f | \theta)$</p>
-<h3>Conjugate Priors</h3>
-<p><span class="b">Bernoulli $\rightleftharpoons$ Beta</span> ($\Gamma(n) = (n-1)!$):</p>
-<p>&bull; Likelihood: $p(D | \theta) = \theta^k (1 - \theta)^{n-k}$</p>
-<p>&bull; Prior: $\text{Beta}(\theta | a, b) = \frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} \theta^{a-1} (1 - \theta)^{b-1}$</p>
-<p><span class="b">Poisson $\rightleftharpoons$ Gamma</span>:</p>
-<p>&bull; Likelihood: $p(D | \lambda) = \prod_i^N \frac{\lambda^{x_i} e^{-\lambda}}{x_i!}$</p>
-<p>&bull; Prior: $p(\lambda) = \frac{\beta^\alpha}{\Gamma(\alpha)} \lambda^{\alpha-1} e^{-\beta\lambda}$</p>
-<p>&bull; Posterior: $p(\lambda | D) = \text{Gamma}(\lambda | \alpha + \sum x_i, \beta + N)$</p>
-<p><span class="b">Gaussian $\rightleftharpoons$ Gaussian</span>:</p>
-<p>&bull; Likelihood: $p(D | \mu) = \prod_i^N \frac{1}{\sqrt{2\pi\sigma^2}} \exp \left( -\frac{(x_i - \mu)^2}{2\sigma^2} \right)$</p>
-<p>&bull; Prior: $p(\mu) = \mathcal{N}(\mu | \mu_0, \tau_0^2)$</p>
-<p>&bull; Posterior parameters:</p>
-<p>&bull; $\mu_{\text{post}} = (\mu_0 \sigma^2 + N \bar{x} \tau_0^2) / (\sigma^2 + N \tau_0^2)$</p>
-<p>&bull; $\tau^2_{\text{post}} = 1 / \left( \frac{1}{\tau_0^2} + \frac{N}{\sigma^2} \right)$</p></div>
+<div class="box"><h2 class="hl-p">Probabilistic Inference</h2></div>
+<div class="box"><p><span class="b">Maximum Likelihood Estimation (MLE)</span>:</p></div>
+<div class="box"><p>&bull; $\theta_{MLE} = \arg \max_{\theta} p(D | \theta)$</p></div>
+<div class="box"><p>&bull; $p(D | \theta) = \prod_{i}^{N} p(x_i | \theta)$</p></div>
+<div class="box"><p>&bull; $E_{MLE} = - \ln p(D | \theta) = - \sum_{i}^{N} \ln p(x_i | \theta)$</p></div>
+<div class="box"><p>&bull; $\theta_{MLE} = \frac{|T|}{|T| + |H|}$</p></div>
+<div class="box"><p><span class="b">Maximum A Posteriori (MAP)</span>:</p></div>
+<div class="box"><p>&bull; $\theta_{MAP} = \arg \max_{\theta} p(\theta | D)$</p></div>
+<div class="box"><p>&bull; $p(\theta | D) \propto p(D | \theta) p(\theta)$</p></div>
+<div class="box"><p>&bull; $E_{MAP} = - (|T| + a - 1) \ln \theta - (|H| + b - 1) \ln(1 - \theta)$</p></div>
+<div class="box"><p>&bull; $\theta_{MAP} = \frac{|T| + a - 1}{|T| + |H| + a + b - 2}$</p></div>
+<div class="box"><p>&bull; When $a = b = 1$: $\theta_{MAP} = \theta_{MLE}$</p></div>
+<div class="box"><p><span class="b">Posterior</span>: $P(\theta | D) = \text{Beta}(\theta | a + |T|, b + |H|)$</p></div>
+<div class="box"><h2 class="hl-y">Hoeffding's Inequality</h2></div>
+<div class="box"><p>$p(|\theta_{MLE} - \theta_{\text{true}}| \ge \epsilon) \le 2e^{-2N\epsilon^2} \le \delta$</p></div>
+<div class="box"><h2 class="hl-c">Bayesian Models</h2></div>
+<div class="box"><p><span class="b">Predictive Distribution</span>: $p(f | D, a, b) = \int_{0}^{1} p(f | \theta) p(\theta | D, a, b) d\theta$</p></div>
+<div class="box"><p><span class="b">Fully Bayesian</span>: $\theta^* = \frac{|T| + a}{|T| + |H| + a + b} \equiv \text{Ber}(f | \theta)$</p></div>
+<div class="box"><h3>Conjugate Priors</h3></div>
+<div class="box"><p><span class="b">Bernoulli $\rightleftharpoons$ Beta</span> ($\Gamma(n) = (n-1)!$):</p></div>
+<div class="box"><p>&bull; Likelihood: $p(D | \theta) = \theta^k (1 - \theta)^{n-k}$</p></div>
+<div class="box"><p>&bull; Prior: $\text{Beta}(\theta | a, b) = \frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} \theta^{a-1} (1 - \theta)^{b-1}$</p></div>
+<div class="box"><p>&bull; <span class="b">When to use Bernoulli:</span> Modeling <span class="b">binary outcome probabilities</span> (success/failure, yes/no, click/no-click); Properties: Support $\theta \in [0, 1]$. Parameters $a, b > 0$ (shape). Mean $\mathbb{E}[\theta] = \frac{a}{a+b}$, mode $\frac{a-1}{a+b-2}$ (for $a, b > 1$), variance $\frac{ab}{(a+b)^2(a+b+1)}$.</p></div>
+<div class="box"><p>&bull; <span class="b">When to use Beta:</span> Modeling any <span class="b">probability/proportion</span> (not necessarily from Bernoulli data). Examples: click-through rates, conversion rates, exam pass rates, market share percentages</p></div>
+<div class="box"><p><span class="b">Poisson $\rightleftharpoons$ Gamma</span>:</p></div>
+<div class="box"><p>&bull; Likelihood: $p(D | \lambda) = \prod_i^N \frac{\lambda^{x_i} e^{-\lambda}}{x_i!}$ (a Poisson distribution _becomes_ Gaussian when the mean is large)</p></div>
+<div class="box"><p>&bull; Prior: $p(\lambda) = \frac{\beta^\alpha}{\Gamma(\alpha)} \lambda^{\alpha-1} e^{-\beta\lambda}$</p></div>
+<div class="box"><p>&bull; Posterior: $p(\lambda | D) = \text{Gamma}(\lambda | \alpha + \sum x_i, \beta + N)$</p></div>
+<div class="box"><p>&bull; <span class="b">When to use:</span> Modeling <span class="b">count data</span> or <span class="b">event rates</span> (arrivals per hour, defects per unit, events per time interval)</p></div>
+<div class="box"><p>&bull; Properties: Support $\lambda \in (0, \infty)$. Parameters $\alpha > 0$ (shape), $\beta > 0$ (rate). Mean $\mathbb{E}[\lambda] = \frac{\alpha}{\beta}$, mode $\frac{\alpha - 1}{\beta}$ (for $\alpha \geq 1$), variance $\frac{\alpha}{\beta^2}$.</p></div>
+<div class="box"><p>&bull; <span class="b">When to use Gamma:</span> Modeling any <span class="b">positive continuous variable</span> (not necessarily from Poisson data). Examples: time between events, product lifetimes, claim sizes, service times.</p></div>
+<div class="box"><p><span class="b">Gaussian $\rightleftharpoons$ Gaussian</span>:</p></div>
+<div class="box"><p>&bull; Likelihood: $p(D | \mu) = \prod_i^N \frac{1}{\sqrt{2\pi\sigma^2}} \exp \left( -\frac{(x_i - \mu)^2}{2\sigma^2} \right)$</p></div>
+<div class="box"><p>&bull; Prior: $p(\mu) = \mathcal{N}(\mu | \mu_0, \tau_0^2)$</p></div>
+<div class="box"><p>&bull; Posterior parameters:</p></div>
+<div class="box"><p>&bull; $\mu_{\text{post}} = (\mu_0 \sigma^2 + N \bar{x} \tau_0^2) / (\sigma^2 + N \tau_0^2)$</p></div>
+<div class="box"><p>&bull; $\tau^2_{\text{post}} = 1 / \left( \frac{1}{\tau_0^2} + \frac{N}{\sigma^2} \right)$</p></div>
+<div class="box"><p>&bull; <span class="b">When to use:</span> Modeling <span class="b">continuous measurements</span> with known variance (sensor readings, heights, temperatures, test scores)</p></div>
+<div class="box"><p>&bull; Properties: Support $\mu \in (-\infty, \infty)$. Parameters $\mu_0$ (prior mean), $\tau_0^2$ (prior variance), $\sigma^2$ (known data variance). Mean $\mathbb{E}[\mu] = \mu_{\text{post}}$, mode $\mu_{\text{post}}$ (symmetric), variance $\tau^2_{\text{post}}$. Precision form $\tau^{-2}_{\text{post}} = \tau_0^{-2} + N\sigma^{-2}$ (precisions add).</p></div>
+<div class="box"><p><span class="b">Uniform $\rightleftharpoons$ Pareto</span>:</p></div>
+<div class="box"><p>&bull; Likelihood: $p(D | \theta) = \theta^{-N} \cdot \mathbb{1}_{\max(x_i) \le \theta}$</p></div>
+<div class="box"><p>&bull; Prior: $\text{Pareto}(\theta | \lambda, \alpha) = \frac{\alpha \lambda^\alpha}{\theta^{\alpha+1}} \cdot \mathbb{1}_{\theta \ge \lambda}$</p></div>
+<div class="box"><p>&bull; <span class="b">When to use Uniform:</span> Modeling data with a hard, <span class="b">unknown upper bound</span> (where data is equally likely anywhere below the bound). Examples: Serial number analysis (German Tank Problem), estimating maximum physical limits; Properties: Support $\theta \in [\lambda, \infty)$. Parameters $\lambda, \alpha > 0$. Mean $\mathbb{E}[\theta] = \frac{\alpha \lambda}{\alpha-1}$ (for $\alpha > 1$), mode $\lambda$, variance $\frac{\alpha \lambda^2}{(\alpha-1)^2(\alpha-2)}$ (for $\alpha > 2$).</p></div>
+<div class="box"><p>&bull; <span class="b">When to use Pareto:</span> Modeling <span class="b">heavy-tailed quantities</span> or the distribution of a minimum/maximum threshold. Examples: Wealth distribution, city populations, or (as here) the belief about the maximum possible value of a Uniform variable.</p></div>
 <div class='section-header'>4. Linear Regression</div>
-<p><span class="b">Model</span>: $y_i = f(x_i) + \varepsilon_i \quad \varepsilon_i \sim \mathcal{N}(0, \beta^{-1})$</p>
-<p><span class="b">Least Squares Error</span>: $E_{LS} = \frac{1}{2} \sum_{i}^{n} (w^T x_i - y_i)^2$</p>
-<p><span class="b">Optimal Weight</span>: $w^* = \arg\min_w E_{LS} = (X^T X)^{-1} X^T y = X^{\dagger} y$</p>
-<p><span class="b">Non-linear Data (Feature Transform)</span>:</p>
-<p>&bull; $f(x) = w_0 + \sum_{j=1}^{M} w_j \phi_j(x) = w^T \Phi(x)$</p>
-<p>&bull; $\Phi \in \mathbb{R}^{N \times (M+1)}$</p>
-<p>&bull; $w^* = (\Phi^T \Phi)^{-1} \Phi^T y = \Phi^{\dagger} y$</p>
-<p><span class="b">Model Complexity</span>:</p>
-<p>&bull; High variance → overfit</p>
-<p>&bull; High bias → underfit</p>
-<p><span class="b">Ridge Regression</span>: $E_{ridge} = \frac{1}{2} \sum_{i}^{n} (w^T \Phi(x_i) - y_i)^2 + \frac{\lambda}{2} \|w\|^2_2$</p>
-<h3>Probabilistic Formulation</h3>
-<p><span class="b">Likelihood</span>: $y_i \sim \mathcal{N}(f_w(x_i), \beta^{-1})$, $p(y | X, w, \beta) = \prod_{i}^{N} p(y_i | f_w(x_i), \beta)$</p>
-<p><span class="b">Negative Log-Likelihood</span>:</p>
-<p>&bull; $E_{ML} = -\ln p(y | X, w, \beta)$</p>
-<p>&bull; $E_{ML} = \frac{\beta}{2} \sum_{i}^{N} (w^T \Phi(x_i) - y_i)^2 - \frac{N}{2} \ln \beta + \frac{N}{2} \ln 2\pi$</p>
-<p><span class="b">Maximum Likelihood Estimators</span>:</p>
-<p>&bull; $w_{ML} = w_{LS} = \Phi^{\dagger} y$</p>
-<p>&bull; $\frac{1}{\beta_{ML}} = \frac{1}{N} \sum_{i}^{N} (w^T_{ML} \Phi(x_i) - y_i)^2$</p>
-<p><span class="b">With Gaussian Prior</span>: $p(w | \alpha) = \mathcal{N}(w | 0, \alpha^{-1} I) = \left( \frac{\alpha}{2\pi} \right)^{\frac{M}{2}} \exp \left( -\frac{\alpha}{2} w^T w \right)$ (M: length of $w$)</p>
-<p><span class="b">MAP Estimation</span>:</p>
-<p>&bull; $E_{MAP} = -\ln p(y | X, w, \beta) - \ln p(w | \alpha)$</p>
-<p>&bull; $E_{MAP} = \frac{\beta}{2} \sum_{i}^{N} (w^T \phi(x_i) - y_i)^2 + \frac{\alpha}{2} \|w\|^2_2$</p>
-<p>&bull; Equivalent to Ridge Regression where $\lambda = \frac{\alpha}{\beta}$</p>
-<p>&bull; $w^*_{ridge} = (\Phi^T \Phi + \lambda I)^{-1} \Phi^T y$</p>
-<h3>Fully Bayesian Linear Regression</h3>
-<p><span class="b">Posterior</span>: $p(w | D) = \mathcal{N}(w | \mu, \Sigma)$</p>
-<p>&bull; $\mu = \beta \Sigma \Phi^T y$</p>
-<p>&bull; $\Sigma^{-1} = \alpha I + \beta \Phi^T \Phi$</p>
-<p><span class="b">Predictions</span>:</p>
-<p>&bull; <span class="b">MLE</span>: $p(\hat{y}_{new} | x_{new}, w_{ML}, \beta_{ML}) = \mathcal{N}(\hat{y}_{new} | w_{ML}^T \phi(x_{new}), \beta_{ML}^{-1})$</p>
-<p>&bull; <span class="b">MAP</span>: $p(\hat{y}_{new} | x_{new}, w_{MAP}, \beta) = \mathcal{N}(\hat{y}_{new} | w_{MAP}^T \phi(x_{new}), \beta^{-1})$</p>
-<p>&bull; <span class="b">Fully Bayesian</span>: $p(\hat{y}_{new} | x_{new}, D) = \mathcal{N}(\hat{y}_{new} | \mu^T \phi(x_{new}), \beta^{-1} + \phi(x_{new})^T \Sigma \phi(x_{new}))$</p>
-<h3>Weighted Linear Regression</h3>
-<p><span class="b">Objective (with weight $r_i$)</span>: $E_{weighted} = \frac{1}{2} \sum_{i}^{N} r_i (w^T \phi(x_i) - y_i)^2$</p>
-<p><span class="b">Optimal Weight</span>: $w^*_{weighted} = (\Phi^T R \Phi)^{-1} \Phi^T R y$</p>
-
+<div class="box"><p><span class="b">Model</span>: $y_i = f(x_i) + \varepsilon_i \quad \varepsilon_i \sim \mathcal{N}(0, \beta^{-1})$</p></div>
+<div class="box"><p><span class="b">Least Squares Error</span>: $E_{LS} = \frac{1}{2} \sum_{i}^{n} (w^T x_i - y_i)^2$</p></div>
+<div class="box"><p><span class="b">Optimal Weight</span>: $w^* = \arg\min_w E_{LS} = (X^T X)^{-1} X^T y = X^{\dagger} y$</p></div>
+<div class="box"><p><span class="b">Non-linear Data (Feature Transform)</span>:</p></div>
+<div class="box"><p>&bull; $f(x) = w_0 + \sum_{j=1}^{M} w_j \phi_j(x) = w^T \Phi(x)$</p></div>
+<div class="box"><p>&bull; $\Phi \in \mathbb{R}^{N \times (M+1)}$</p></div>
+<div class="box"><p>&bull; $w^* = (\Phi^T \Phi)^{-1} \Phi^T y = \Phi^{\dagger} y$</p></div>
+<div class="box"><p><span class="b">Model Complexity</span>:</p></div>
+<div class="box"><p>&bull; High variance → overfit</p></div>
+<div class="box"><p>&bull; High bias → underfit</p></div>
+<div class="box"><p><span class="b">Ridge Regression</span>: $E_{ridge} = \frac{1}{2} \sum_{i}^{n} (w^T \Phi(x_i) - y_i)^2 + \frac{\lambda}{2} \|w\|^2_2$</p></div>
+<div class="box"><h3>Probabilistic Formulation</h3></div>
+<div class="box"><p><span class="b">Likelihood</span>: $y_i \sim \mathcal{N}(f_w(x_i), \beta^{-1})$, $p(y | X, w, \beta) = \prod_{i}^{N} p(y_i | f_w(x_i), \beta)$</p></div>
+<div class="box"><p><span class="b">Negative Log-Likelihood</span>:</p></div>
+<div class="box"><p>&bull; $E_{ML} = -\ln p(y | X, w, \beta)$</p></div>
+<div class="box"><p>&bull; $E_{ML} = \frac{\beta}{2} \sum_{i}^{N} (w^T \Phi(x_i) - y_i)^2 - \frac{N}{2} \ln \beta + \frac{N}{2} \ln 2\pi$</p></div>
+<div class="box"><p><span class="b">Maximum Likelihood Estimators</span>:</p></div>
+<div class="box"><p>&bull; $w_{ML} = w_{LS} = \Phi^{\dagger} y$</p></div>
+<div class="box"><p>&bull; $\frac{1}{\beta_{ML}} = \frac{1}{N} \sum_{i}^{N} (w^T_{ML} \Phi(x_i) - y_i)^2$</p></div>
+<div class="box"><p><span class="b">With Gaussian Prior</span>: $p(w | \alpha) = \mathcal{N}(w | 0, \alpha^{-1} I) = \left( \frac{\alpha}{2\pi} \right)^{\frac{M}{2}} \exp \left( -\frac{\alpha}{2} w^T w \right)$ (M: length of $w$)</p></div>
+<div class="box"><p><span class="b">MAP Estimation</span>:</p></div>
+<div class="box"><p>&bull; $E_{MAP} = -\ln p(y | X, w, \beta) - \ln p(w | \alpha)$</p></div>
+<div class="box"><p>&bull; $E_{MAP} = \frac{\beta}{2} \sum_{i}^{N} (w^T \phi(x_i) - y_i)^2 + \frac{\alpha}{2} \|w\|^2_2$</p></div>
+<div class="box"><p>&bull; Equivalent to Ridge Regression where $\lambda = \frac{\alpha}{\beta}$</p></div>
+<div class="box"><p>&bull; $w^*_{ridge} = (\Phi^T \Phi + \lambda I)^{-1} \Phi^T y$</p></div>
+<div class="box"><h3>Fully Bayesian Linear Regression</h3></div>
+<div class="box"><p><span class="b">Posterior</span>: $p(w | D) = \mathcal{N}(w | \mu, \Sigma)$</p></div>
+<div class="box"><p>&bull; $\mu = \beta \Sigma \Phi^T y$</p></div>
+<div class="box"><p>&bull; $\Sigma^{-1} = \alpha I + \beta \Phi^T \Phi$</p></div>
+<div class="box"><p><span class="b">Predictions</span>:</p></div>
+<div class="box"><p>&bull; <span class="b">MLE</span>: $p(\hat{y}_{new} | x_{new}, w_{ML}, \beta_{ML}) = \mathcal{N}(\hat{y}_{new} | w_{ML}^T \phi(x_{new}), \beta_{ML}^{-1})$</p></div>
+<div class="box"><p>&bull; <span class="b">MAP</span>: $p(\hat{y}_{new} | x_{new}, w_{MAP}, \beta) = \mathcal{N}(\hat{y}_{new} | w_{MAP}^T \phi(x_{new}), \beta^{-1})$</p></div>
+<div class="box"><p>&bull; <span class="b">Fully Bayesian</span>: $p(\hat{y}_{new} | x_{new}, D) = \mathcal{N}(\hat{y}_{new} | \mu^T \phi(x_{new}), \beta^{-1} + \phi(x_{new})^T \Sigma \phi(x_{new}))$</p></div>
+<div class="box"><h3>Weighted Linear Regression</h3></div>
+<div class="box"><p><span class="b">Objective (with weight $r_i$)</span>: $E_{weighted} = \frac{1}{2} \sum_{i}^{N} r_i (w^T \phi(x_i) - y_i)^2$</p></div>
+<div class="box"><p><span class="b">Optimal Weight</span>: $w^*_{weighted} = (\Phi^T R \Phi)^{-1} \Phi^T R y$</p></div>
 <div class='section-header'>5. Linear Classification</div>
-<p><span class="b">Zero-one Loss</span>: $l_{01}(y, \hat{y}) = \sum_{i}^{N} \mathbb{I}(\hat{y}_i \neq y_i)$ (loss for incorrect predictions is 1)</p>
-<p><span class="b">Hyperplane</span>: $f(x) = w^T x + w_0$</p>
-<p>&bull; Direction: $w$</p>
-<p>&bull; Distance from origin: $-\frac{w_0}{\|w\|}$</p>
-<p><span class="b">Perceptron Update Rule</span> (for each misclassified $x_i$):</p>
-<p>$$w \leftarrow \begin{cases} w + x_i & \text{if } y_i = 1 \\ w - x_i & \text{if } y_i = 0 \end{cases} \quad w_0 \leftarrow \begin{cases} w_0 + 1 & \text{if } y_i = 1 \\ w_0 - 1 & \text{if } y_i = 0 \end{cases}$$</p>
-<p><span class="b">Probabilistic Generative Model</span>:</p>
-<p>&bull; <span class="b">Prior</span>: $y \sim \text{Categorical}(\theta)$, $p(y=c) = \theta_c = \frac{N_c}{N}$, $\sum_c \theta_c = 1$</p>
-<p>&bull; <span class="b">Class-conditional</span>: $p(x | y = c) = \mathcal{N}(x | \mu_c, \Sigma)$ (assume $\Sigma_c$ all equal)</p>
-
-<div class='box'><h2 class='hl-g'>Probabilistic Generative Models & Discriminant Analysis</h2><p><span class="b">Binary Classification</span>:</p>
-<p>&bull; $p(y=1|x) = \sigma(a) = \frac{1}{1 + e^{-a}}$ where $a = \ln \frac{p(x|y=1)p(y=1)}{p(x|y=0)p(y=0)}$</p>
-<p>&bull; $a = w^T x + w_0$</p>
-<p><span class="b">LDA (Linear Discriminant Analysis)</span> (with shared covariance $\Sigma$):</p>
-<p>&bull; $w = \Sigma^{-1}(\mu_1 - \mu_0)$</p>
-<p>&bull; $w_0 = -\frac{1}{2}\mu_1^T \Sigma^{-1} \mu_1 + \frac{1}{2}\mu_0^T \Sigma^{-1} \mu_0 + \ln \frac{p(y=1)}{p(y=0)}$</p>
-<p>&bull; Thus $y|x \sim \text{Bernoulli}(\sigma(w^T x + w_0))$</p>
-<p><span class="b">Multi-class Classification</span>:</p>
-<p>&bull; $p(y=c|x) = \frac{p(x|y=c)p(y=c)}{\sum_j^C p(x|y=c_j)p(y=c_j)} = \frac{\exp(w_c^T x + w_{c0})}{\sum_j^C \exp(w_j^T x + w_{j0})}$</p>
-<p>&bull; $w_c = \Sigma^{-1}\mu_c$</p>
-<p>&bull; $w_{c0} = -\frac{1}{2}\mu_c^T \Sigma^{-1} \mu_c + \ln p(y=c)$</p>
-<p><span class="b">QDA (Quadratic Discriminant Analysis)</span> (different covariances $\Sigma_c$):</p>
-<p>&bull; $p(y=1|x) = \sigma(a)$ where $a = x^T W_2 x + w_1^T x + w_0$</p>
-<p>&bull; $W_2 = \frac{1}{2}[\Sigma_0^{-1} - \Sigma_1^{-1}]$</p>
-<p>&bull; $w_1 = \Sigma_1^{-1}\mu_1 - \Sigma_0^{-1}\mu_0$</p>
-<p>&bull; $w_0 = -\frac{1}{2}\mu_1^T \Sigma_1^{-1} \mu_1 + \frac{1}{2}\mu_0^T \Sigma_0^{-1} \mu_0 + \ln \frac{\pi_1}{\pi_0} + \frac{1}{2} \ln \frac{|\Sigma_0|}{|\Sigma_1|}$</p></div>
-<div class='box'><h2 class='hl-p'>Linear Discriminant Model: Logistic Regression</h2><p><span class="b">Binary Logistic Regression</span>:</p>
-<p>&bull; $p(y=1|x) = \sigma(w^T x)$</p>
-<p>&bull; $p(y=0|x) = 1 - \sigma(w^T x)$</p>
-<p>&bull; $p(y|w, x) = \prod_i^N \sigma(w^T x_i)^{y_i} (1 - \sigma(w^T x_i))^{1 - y_i}$</p>
-<p><span class="b">Loss Function (Binary Cross Entropy)</span>:</p>
-<p>&bull; $E(w) = - \sum_i^N (y_i \log \sigma(w^T x_i) + (1 - y_i) \log (1 - \sigma(w^T x_i)))$</p>
-<p>&bull; Regularization can be added: $+ \lambda \|w\|_2^2$</p>
-<p><span class="b">Multi-class (Softmax + Cross Entropy)</span>:</p>
-<p>&bull; $E(w) = - \sum_i^N \sum_c^C y_{ic} \log \frac{e^{(w_c^T x)}}{\sum_{c'} e^{(w_{c'}^T x)}}$</p>
-<p>&bull; $y_{ic} = 1$ iff sample $x \in c$ class</p></div>
+<div class="box"><p><span class="b">Zero-one Loss</span>: $l_{01}(y, \hat{y}) = \sum_{i}^{N} \mathbb{I}(\hat{y}_i \neq y_i)$ (loss for incorrect predictions is 1)</p></div>
+<div class="box"><p><span class="b">Hyperplane</span>: $f(x) = w^T x + w_0$</p></div>
+<div class="box"><p>&bull; Direction: $w$</p></div>
+<div class="box"><p>&bull; Distance from origin: $-\frac{w_0}{\|w\|}$</p></div>
+<div class="box"><p>&bull; Distance to Plane: The distance from the point $x$ to the decision boundary: $\frac{y(x)}{\|w\|}$</p></div>
+<div class="box"><p><span class="b">Perceptron Update Rule</span> (for each misclassified $x_i$):</p></div>
+<div class="box">$$w \leftarrow \begin{cases} w + x_i & \text{if } y_i = 1 \\ w - x_i & \text{if } y_i = 0 \end{cases} \quad w_0 \leftarrow \begin{cases} w_0 + 1 & \text{if } y_i = 1 \\ w_0 - 1 & \text{if } y_i = 0 \end{cases}$$</div>
+<div class="box"><p><span class="b">Probabilistic Generative Model</span>:</p></div>
+<div class="box"><p>&bull; <span class="b">Prior</span>: $y \sim \text{Categorical}(\theta)$, $p(y=c) = \theta_c = \frac{N_c}{N}$, $\sum_c \theta_c = 1$</p></div>
+<div class="box"><p>&bull; <span class="b">Class-conditional</span>: $p(x | y = c) = \mathcal{N}(x | \mu_c, \Sigma)$ (assume $\Sigma_c$ all equal)</p></div>
+<div class="box"><h2 class="hl-g">Probabilistic Generative Models &amp; Discriminant Analysis</h2></div>
+<div class="box"><p>&bull; Remember $\sum_{c=1}^C \sum_{n=1}^{N} =1$</p></div>
+<div class="box"><p><span class="b">Binary Classification</span>:</p></div>
+<div class="box"><p>&bull; $p(y=1|x) = \sigma(a) = \frac{1}{1 + e^{-a}}$ where $a = \ln \frac{p(x|y=1)p(y=1)}{p(x|y=0)p(y=0)}$</p></div>
+<div class="box"><p>&bull; $a = w^T x + w_0$</p></div>
+<div class="box"><p><span class="b">LDA (Linear Discriminant Analysis)</span> (with shared covariance $\Sigma$):</p></div>
+<div class="box"><p>&bull; $w = \Sigma^{-1}(\mu_1 - \mu_0)$</p></div>
+<div class="box"><p>&bull; $w_0 = -\frac{1}{2}\mu_1^T \Sigma^{-1} \mu_1 + \frac{1}{2}\mu_0^T \Sigma^{-1} \mu_0 + \ln \frac{p(y=1)}{p(y=0)}$</p></div>
+<div class="box"><p>&bull; Thus $y|x \sim \text{Bernoulli}(\sigma(w^T x + w_0))$</p></div>
+<div class="box"><p><span class="b">Naive Bayes</span> (assumes feature independence):</p></div>
+<div class="box"><p>&bull; $p(x|y=c) = \prod_{j=1}^d p(x_j|y=c)$</p></div>
+<div class="box"><p>&bull; <span class="b">Gaussian Naive Bayes</span>: $p(x_j|y=c) = \mathcal{N}(x_j|\mu_{jc}, \sigma_{jc}^2)$</p></div>
+<div class="box"><p>&bull; Equivalent to LDA/QDA with diagonal covariance matrix</p></div>
+<div class="box"><p>&bull; $a = w^T x + w_0$ where $w_j = \frac{\mu_{j1}}{\sigma_{j1}^2} - \frac{\mu_{j0}}{\sigma_{j0}^2}$ (if $\sigma_{j1} = \sigma_{j0}$)</p></div>
+<div class="box"><p>&bull; <span class="b">Multinomial Naive Bayes</span>: for discrete features (e.g., word counts)</p></div>
+<div class="box"><p>&bull; $p(x_j|y=c) = \text{Categorical}(\theta_{jc})$</p></div>
+<div class="box"><p>&bull; $\log p(y=c|x) \propto \sum_j x_j \log \theta_{jc} + \log p(y=c)$</p></div>
+<div class="box"><p>&bull; <span class="b">Bernoulli Naive Bayes</span>: for binary features</p></div>
+<div class="box"><p>&bull; $p(x_j|y=c) = \text{Bernoulli}(\theta_{jc})$</p></div>
+<div class="box"><p><span class="b">Multi-class Classification</span>:</p></div>
+<div class="box"><p>&bull; $p(y=c|x) = \frac{p(x|y=c)p(y=c)}{\sum_j^C p(x|y=c_j)p(y=c_j)} = \frac{\exp(w_c^T x + w_{c0})}{\sum_j^C \exp(w_j^T x + w_{j0})}$</p></div>
+<div class="box"><p>&bull; $w_c = \Sigma^{-1}\mu_c$</p></div>
+<div class="box"><p>&bull; $w_{c0} = -\frac{1}{2}\mu_c^T \Sigma^{-1} \mu_c + \ln p(y=c)$</p></div>
+<div class="box"><p><span class="b">QDA (Quadratic Discriminant Analysis)</span> (different covariances $\Sigma_c$):</p></div>
+<div class="box"><p>&bull; $p(y=1|x) = \sigma(a)$ where $a = x^T W_2 x + w_1^T x + w_0$</p></div>
+<div class="box"><p>&bull; $W_2 = \frac{1}{2}[\Sigma_0^{-1} - \Sigma_1^{-1}]$</p></div>
+<div class="box"><p>&bull; $w_1 = \Sigma_1^{-1}\mu_1 - \Sigma_0^{-1}\mu_0$</p></div>
+<div class="box"><p>&bull; $w_0 = -\frac{1}{2}\mu_1^T \Sigma_1^{-1} \mu_1 + \frac{1}{2}\mu_0^T \Sigma_0^{-1} \mu_0 + \ln \frac{\pi_1}{\pi_0} + \frac{1}{2} \ln \frac{|\Sigma_0|}{|\Sigma_1|}$</p></div>
+<div class="box"><p><span class="b">one hot</span></p></div>
+<div class="box"><p>&bull;  $\prod_{c=1}^{C} (p_c)^{y_c} = p_{\text{true class}}$</p></div>
+<div class="box"><p>&bull;  $p(\mathcal{D} \mid {\pi_c, \theta_c}_{c=1}^C) = \prod_{n=1}^{N} \prod_{c=1}^{C} \left[p(x^{(n)} | \theta_c) \pi_c\right]^{y_c^{(n)}}$</p></div>
+<div class="box"><p>&bull; <span class="b">${\pi_c, \theta_c}_{c=1}^C$ = all parameters for all $C$ classes</span></p></div>
+<div class="box"><h2 class="hl-p">Linear Discriminant Model: Logistic Regression</h2></div>
+<div class="box"><p><span class="b">Binary Logistic Regression</span>:</p></div>
+<div class="box"><p>&bull; $p(y=1|x) = \sigma(w^T x)$</p></div>
+<div class="box"><p>&bull; $p(y=0|x) = 1 - \sigma(w^T x)$</p></div>
+<div class="box"><p>&bull; $p(y|w, x) = \prod_i^N \sigma(w^T x_i)^{y_i} (1 - \sigma(w^T x_i))^{1 - y_i}$</p></div>
+<div class="box"><p>&bull; $\frac{d\sigma(a)}{da} = \sigma(a)(1 - \sigma(a))$</p></div>
+<div class="box"><p><span class="b">Loss Function (Binary Cross Entropy)</span>:</p></div>
+<div class="box"><p>&bull; $E(w) = - \sum_i^N (y_i \log \sigma(w^T x_i) + (1 - y_i) \log (1 - \sigma(w^T x_i)))$</p></div>
+<div class="box"><p>&bull; Regularization can be added: $+ \lambda \|w\|_2^2$</p></div>
+<div class="box"><p><span class="b">Multi-class (Softmax + Cross Entropy)</span>:</p></div>
+<div class="box"><p>&bull; $E(w) = - \sum_i^N \sum_c^C y_{ic} \log \frac{e^{(w_c^T x)}}{\sum_{c'} e^{(w_{c'}^T x)}}$</p></div>
+<div class="box"><p>&bull; $y_{ic} = 1$ iff sample $x \in c$ class</p></div>
 <div class='section-header'>6. Optimization</div>
-<h3>Convexity</h3>
-<p><span class="b">A function is convex if</span>:</p>
-<p>1. $f((1-t)x + ty) \leq (1-t)f(x) + tf(y)$ (any point between two points is lower than the line connecting them)</p>
-<p>2. $f(y) - f(x) \geq \frac{f((1-t)x + ty) - f(x)}{t}$</p>
-<p>3. $f(y) \geq f(x) + (y-x)^T \nabla f(x)$</p>
-<p>4. <span class="b">Hessian Matrix</span> is positive semi-definite</p>
-<h3>Gradient Descent (Line Search)</h3>
-<p>1. $\Delta \theta = -\nabla f(\theta)$</p>
-<p>2. $t^* = \arg\min_{t \geq 0} f(\theta + t \Delta \theta)$</p>
-<p>3. $\theta = \theta + t^* \Delta \theta$</p>
-<h3>SGD (Stochastic Gradient Descent)</h3>
-<p>$\theta = \theta - r \cdot \nabla f(\theta)$ where $r$ is learning rate</p>
-<p><span class="b">Decaying learning rate</span>: $r = \alpha r, \quad 0 < \alpha < 1$</p>
-<h3>Momentum</h3>
-<p>&bull; $m_t = r \cdot \nabla f(\theta_t) + \gamma \cdot m_{t-1}$</p>
-<p>&bull; $\theta_{t+1} = \theta_t - m_t$</p>
-<h3>Adam</h3>
-<p>&bull; $m_t = \beta_1 m_{t-1} + (1 - \beta_1) \nabla f(\theta_t)$ (mean)</p>
-<p>&bull; $v_t = \beta_2 v_{t-1} + (1 - \beta_2)(\nabla f(\theta_t))^2$ (variance)</p>
-<p>&bull; $\hat{m}_t = \frac{m_t}{1 - \beta_1^t} \quad \hat{v}_t = \frac{v_t}{1 - \beta_2^t}$</p>
-<p>&bull; $\theta_{t+1} = \theta_t - \frac{r}{\sqrt{\hat{v}_t} + \varepsilon} \hat{m}_t$</p>
-<p>&bull; <span class="b">Default values</span>: $\beta_1 = 0.9, \beta_2 = 0.999, \varepsilon = 10^{-8}$</p>
-<h3>Newton Method</h3>
-<p><span class="b">Taylor expansion</span>: $f(\theta_t + \delta) = f(\theta_t) + \delta^T \nabla f(\theta_t) + \frac{1}{2} \delta^T \nabla^2 f(\theta_t) \delta + \dots$</p>
-<p><span class="b">Update</span>: $\theta_{t+1} = \theta_t - [\nabla^2 f(\theta_t)]^{-1} \nabla f(\theta_t)$</p>
-<h3>Mini-batch SGD</h3>
-<p>&bull; $\theta_{t+1} = \theta_t - r \cdot \frac{n}{|S|} \sum_{j \in S} \nabla L_j(\theta_t)$</p>
-<p>&bull; Batch size $\downarrow$ → variance $\uparrow$</p>
-<p>&bull; Batch size $\uparrow$ → computation time $\uparrow$</p>
-
+<div class="box"><h3>Convexity</h3></div>
+<div class="box"><p>A function is convex if:</p></div>
+<div class="box"><p>1. $f((1-t)x + ty) \leq (1-t)f(x) + tf(y)$ (any point between two points is lower than the line connecting them)</p></div>
+<div class="box"><p>2. $f(y) - f(x) \geq \frac{f((1-t)x + ty) - f(x)}{t}$</p></div>
+<div class="box"><p>3. $f(y) \geq f(x) + (y-x)^T \nabla f(x)$</p></div>
+<div class="box"><p>4. Hessian Matrix is positive semi-definite:</p></div>
+<div class="box">$$
+\nabla^2 f(x) = \begin{bmatrix}
+\frac{\partial^2 f}{\partial x_1^2} & \frac{\partial^2 f}{\partial x_1 \partial x_2} & \cdots & \frac{\partial^2 f}{\partial x_1 \partial x_n} \\
+\frac{\partial^2 f}{\partial x_2 \partial x_1} & \frac{\partial^2 f}{\partial x_2^2} & \cdots & \frac{\partial^2 f}{\partial x_2 \partial x_n} \\
+\vdots & \vdots & \ddots & \vdots \\
+\frac{\partial^2 f}{\partial x_n \partial x_1} & \frac{\partial^2 f}{\partial x_n \partial x_2} & \cdots & \frac{\partial^2 f}{\partial x_n^2}
+\end{bmatrix} \succeq 0$$</div>
+<div class="box"><p>(i.e., $v^T \nabla^2 f(x) v \geq 0$ for all vectors $v$)</p></div>
+<div class="box"><p>1. Sylvester's Criterion for PSD (Convexity Check)</p></div>
+<div class="box"><p>For Hessian, function is convex ⟺ <span class="b">BOTH</span> 1:$A \geq 0$ 2: $AC - B^2 \geq 0$</p></div>
+<div class="box"><p>(If det = 0, condition 1 is essential (prevents saddle points))</p></div>
+<div class="box"><p>2. If det $\leq 0$ not PSD</p></div>
+<div class="box"><p>#### Properties of Convex Functions</p></div>
+<div class="box"><p><span class="b">Properties of Convex Functions</span>:</p></div>
+<div class="box"><p>1. $g(x) = g_1(x) + g_2(x)$ (Sum of convex functions is convex)</p></div>
+<div class="box"><p>2. $g(x) = \max \{ g_1(x), g_2(x) \}$ (Pointwise maximum is convex)</p></div>
+<div class="box"><p>3. $g(x) = c \cdot g_1(x)$ where $c \geq 0$ (Non-negative scaling)</p></div>
+<div class="box"><p>4. $g(x) = c \cdot f_1(x)$ where $c \leq 0$ and $f_1(x)$ is concave</p></div>
+<div class="box"><p>5. $g(x) = g_1(Ax + b)$ (Affine transformation)</p></div>
+<div class="box"><h3>Gradient Descent (Line Search)</h3></div>
+<div class="box"><p>1. $\Delta \theta = -\nabla f(\theta)$</p></div>
+<div class="box"><p>2. $t^* = \arg\min_{t \geq 0} f(\theta + t \Delta \theta)$</p></div>
+<div class="box"><p>3. $\theta = \theta + t^* \Delta \theta$</p></div>
+<div class="box"><h3>SGD (Stochastic Gradient Descent)</h3></div>
+<div class="box"><p>$\theta = \theta - r \cdot \nabla f(\theta)$ where $r$ is learning rate</p></div>
+<div class="box"><p><span class="b">Decaying learning rate</span>: $r = \alpha r, \quad 0 < \alpha < 1$</p></div>
+<div class="box"><h3>Momentum</h3></div>
+<div class="box"><p>&bull; $m_t = r \cdot \nabla f(\theta_t) + \gamma \cdot m_{t-1}$</p></div>
+<div class="box"><p>&bull; $\theta_{t+1} = \theta_t - m_t$</p></div>
+<div class="box"><h3>Adam</h3></div>
+<div class="box"><p>&bull; $m_t = \beta_1 m_{t-1} + (1 - \beta_1) \nabla f(\theta_t)$ (mean)</p></div>
+<div class="box"><p>&bull; $v_t = \beta_2 v_{t-1} + (1 - \beta_2)(\nabla f(\theta_t))^2$ (variance)</p></div>
+<div class="box"><p>&bull; $\hat{m}_t = \frac{m_t}{1 - \beta_1^t} \quad \hat{v}_t = \frac{v_t}{1 - \beta_2^t}$</p></div>
+<div class="box"><p>&bull; $\theta_{t+1} = \theta_t - \frac{r}{\sqrt{\hat{v}_t} + \varepsilon} \hat{m}_t$</p></div>
+<div class="box"><p>&bull; <span class="b">Default values</span>: $\beta_1 = 0.9, \beta_2 = 0.999, \varepsilon = 10^{-8}$</p></div>
+<div class="box"><h3>Newton Method</h3></div>
+<div class="box"><p><span class="b">Taylor expansion</span>: $f(\theta_t + \delta) = f(\theta_t) + \delta^T \nabla f(\theta_t) + \frac{1}{2} \delta^T \nabla^2 f(\theta_t) \delta + \dots$</p></div>
+<div class="box"><p><span class="b">Update</span>: $\theta_{t+1} = \theta_t - [\nabla^2 f(\theta_t)]^{-1} \nabla f(\theta_t)$</p></div>
+<div class="box"><h3>Mini-batch SGD</h3></div>
+<div class="box"><p>&bull; $\theta_{t+1} = \theta_t - r \cdot \frac{n}{|S|} \sum_{j \in S} \nabla L_j(\theta_t)$</p></div>
+<div class="box"><p>&bull; Batch size $\downarrow$ → variance $\uparrow$</p></div>
+<div class="box"><p>&bull; Batch size $\uparrow$ → computation time $\uparrow$</p></div>
 <div class='section-header'>7. Deep Learning</div>
-<p><span class="b">Notation</span>: $w_{ijk}$ denotes weight from layer $i$, input node $j$, output node $k$</p>
-<h3>Architecture Types</h3>
-<p>&bull; <span class="b">Feed-Forward Neural Network (FFNN)</span></p>
-<p>&bull; <span class="b">Multi-layered Perceptron (MLP)</span></p>
-<h3>Activation Functions</h3>
-<p>&bull; <span class="b">Sigmoid</span>: $\sigma(x) = \frac{1}{1 + e^{-x}}$</p>
-<p>&bull; <span class="b">ReLU</span>: $\max(0, x)$</p>
-<p>&bull; <span class="b">ELU</span>: $\begin{cases} x & x > 0 \\ a(e^x - 1) & x < 0 \end{cases}$</p>
-<p>&bull; <span class="b">tanh</span>: $\tanh(x)$</p>
-<p>&bull; <span class="b">Leaky ReLU</span>: $\max(0.1x, x)$</p>
-<p>&bull; <span class="b">Swish</span>: $x \cdot \sigma(x)$</p>
-<h3>Target and Loss Functions</h3>
-<table><tr><th>Target $p(y|x)$</th><th>Final Layer</th><th>Loss</th></tr><tr><td>Binary (Bernoulli)</td><td>Sigmoid</td><td>BCE (Binary Cross Entropy)</td></tr><tr><td>Discrete (Categorical)</td><td>Softmax</td><td>CE (Cross Entropy)</td></tr><tr><td>Continuous (Gaussian)</td><td>Identity</td><td>Squared Error</td></tr></table>
-<h3>Weight Update Rule</h3>
-<p>$W^{(new)} = W^{(old)} - r \nabla_W E(W^{(old)})$</p>
-<h3>Backpropagation</h3>
-<p><span class="b">Chain Rule</span>: $\frac{\partial c}{\partial x} = \frac{\partial c}{\partial a} \frac{\partial a}{\partial x} + \frac{\partial c}{\partial b} \frac{\partial b}{\partial x}$</p>
-<p><span class="b">Gradient of vector</span>: $\nabla_a c = \left( \frac{\partial c}{\partial a} \right)^T = \left[ \frac{\partial c}{\partial a_1}, \frac{\partial c}{\partial a_2}, \dots, \frac{\partial c}{\partial a_m} \right]^T \in \mathbb{R}^{1 \times m}$</p>
-<p><span class="b">Vector chain rule</span>: $\nabla_x c = \left( \frac{\partial a}{\partial x} \right)^T \nabla_a c$</p>
-<p><span class="b">Derivative Dimensions (Output vs. Input)</span>:</p>
-<table><tr><th></th><th><span class="b">scalar</span></th><th><span class="b">vector</span></th><th><span class="b">matrix</span></th></tr><tr><td><span class="b">scalar</span></td><td>scalar</td><td>vector</td><td>matrix</td></tr></table>
-<p><span class="b">Tensor notation</span>: $\left( \frac{\partial a}{\partial W} \right)_{ijk} = \frac{\partial a_i}{\partial W_{jk}}$</p>
-
+<div class="box"><p><span class="b">Notation</span>: $w_{ijk}$ denotes weight from layer $i$, input node $j$, output node $k$</p></div>
+<div class="box"><h3>Architecture Types</h3></div>
+<div class="box"><p>&bull; <span class="b">Feed-Forward Neural Network (FFNN)</span></p></div>
+<div class="box"><p>&bull; <span class="b">Multi-layered Perceptron (MLP)</span></p></div>
+<div class="box"><h3>Activation Functions</h3></div>
+<div class="box"><p>&bull; <span class="b">Sigmoid</span>: $\sigma(x) = \frac{1}{1 + e^{-x}}$</p></div>
+<div class="box"><p>&bull; <span class="b">ReLU</span>: $\max(0, x)$</p></div>
+<div class="box"><p>&bull; <span class="b">ELU</span>: $\begin{cases} x & x > 0 \\ a(e^x - 1) & x < 0 \end{cases}$</p></div>
+<div class="box"><p>&bull; <span class="b">tanh</span>: $\tanh(x)$</p></div>
+<div class="box"><p>&bull; <span class="b">Leaky ReLU</span>: $\max(0.1x, x)$</p></div>
+<div class="box"><p>&bull; <span class="b">Swish</span>: $x \cdot \sigma(x)$</p></div>
+<div class="box"><h3>Target and Loss Functions</h3></div>
+<div class="box"><table><tr><th>Target $p(y|x)$</th><th>Activation</th><th>Loss</th><th>Formula</th></tr><tr><td>Binary (Bernoulli)</td><td>Sigmoid</td><td>BCE</td><td>$-[y\log\hat{y} + (1-y)\log(1-\hat{y})]$</td></tr><tr><td>Discrete (Categorical)</td><td>Softmax</td><td>CE</td><td>$-\sum_i y_i \log \hat{y}_i$</td></tr><tr><td>Continuous (Gaussian)</td><td>Identity</td><td>MSE</td><td>$\frac{1}{2}(y - \hat{y})^2$</td></tr></table></div>
+<div class="box"><p><span class="b">Unified gradient:</span> $\frac{\partial \mathcal{L}}{\partial z} = \hat{y} - y$</p></div>
+<div class="box"><h3>Weight Update Rule</h3></div>
+<div class="box"><p>$W^{(new)} = W^{(old)} - r \nabla_W E(W^{(old)})$</p></div>
+<div class="box"><h3>Backpropagation</h3></div>
+<div class="box"><p><span class="b">Chain Rule</span>: $\frac{\partial c}{\partial x} = \frac{\partial c}{\partial a} \frac{\partial a}{\partial x} + \frac{\partial c}{\partial b} \frac{\partial b}{\partial x}$</p></div>
+<div class="box"><p><span class="b">Gradient of vector</span>: $\nabla_a c = \left( \frac{\partial c}{\partial a} \right)^T = \left[ \frac{\partial c}{\partial a_1}, \frac{\partial c}{\partial a_2}, \dots, \frac{\partial c}{\partial a_m} \right]^T \in \mathbb{R}^{1 \times m}$</p></div>
+<div class="box"><p><span class="b">Vector chain rule</span>: $\nabla_x c = \left( \frac{\partial a}{\partial x} \right)^T \nabla_a c$</p></div>
+<div class="box"><p><span class="b">Derivative Dimensions (Output vs. Input)</span>:</p></div>
+<div class="box"><table><tr><th></th><th><span class="b">scalar</span></th><th><span class="b">vector</span></th><th><span class="b">matrix</span></th></tr><tr><td><span class="b">scalar</span></td><td>scalar</td><td>vector</td><td>matrix</td></tr><tr><td><span class="b">vector</span></td><td>vector</td><td>matrix</td><td>3-way tensor</td></tr><tr><td><span class="b">matrix</span></td><td>matrix</td><td>3-way tensor</td><td>4-way tensor</td></tr></table></div>
+<div class="box"><p><span class="b">Tensor notation</span>: $\left( \frac{\partial a}{\partial W} \right)_{ijk} = \frac{\partial a_i}{\partial W_{jk}}$</p></div>
+<div class="box"><h3>Coding</h3></div>
+<div class="box"><p>&bull; <span class="b">Dot Product</span>: x @ y (vectors → scalar, matrices → matrix)</p></div>
+<div class="box"><p>&bull; <span class="b">Element-wise Mul</span>: x * y (vectors → vector)</p></div>
+<div class="box"><p>&bull; <span class="b">Transpose</span>: x.T or W.T (crucial for matrix calculus)</p></div>
+<div class="box"><p>&bull; <span class="b">Safe Log</span>: np.log1p(x) safer than np.log(1+x)</p></div>
+<div class="box"><p>&bull; <span class="b">Summation</span>: np.sum(x, axis=0) (backprop from scalar loss to vector weights)</p></div>
 <div class='section-header'>8. CNN & Deep Learning Architecture</div>
-<p><span class="b">CNN Kernel Parameters</span>: $L \times M \times C_{in} \times C_{out}$</p>
-<h3>Padding</h3>
-<p>&bull; <span class="b">VALID</span>: No padding, $D_{l+1} = (D_l - K) + 1$</p>
-<p>&bull; <span class="b">SAME</span>: Add $P = \lfloor \frac{K}{2} \rfloor$ padding on each side to keep size</p>
-<p>&bull; <span class="b">FULL</span>: Add $P = K - 1$ on each side to increase size</p>
-<h3>Stride &amp; Pooling</h3>
-<p><span class="b">Stride</span>: Step size ($>1$ results in downsampling)</p>
-<p>&bull; $D_{l+1} = \lfloor \frac{D_l + 2P - K}{S} \rfloor + 1$</p>
-<p><span class="b">Pooling</span>:</p>
-<p>&bull; <span class="b">Max pooling</span>: Take maximum value</p>
-<p>&bull; <span class="b">Mean pooling</span>: Take average value</p>
-<h3>Initialization &amp; Training Issues</h3>
-<p><span class="b">Gradient Problems</span>:</p>
-<p>&bull; <span class="b">Vanishing gradient</span>: $W$ becomes too small</p>
-<p>&bull; <span class="b">Exploding gradient</span>: $W$ becomes too large</p>
-<p><span class="b">Xavier Initialization</span>:</p>
-<p>&bull; $\text{Var}(W) = \frac{2}{fan\_in + fan\_out}$</p>
-<p>&bull; <span class="b">Uniform</span>: $W \sim \text{Uniform} \left( -\sqrt{\frac{6}{fan\_in + fan\_out}}, \sqrt{\frac{6}{fan\_in + fan\_out}} \right)$</p>
-<p>&bull; <span class="b">Normal</span>: $W \sim \mathcal{N} \left( 0, \frac{2}{fan\_in + fan\_out} \right)$</p>
-<p>&bull; Used for saturating activations like sigmoid and tanh</p>
-
-<div class='box'><h2 class='hl-y'>Regularization & Normalization</h2><p>&bull; <span class="b">Regularization techniques</span>:</p>
-<p>&bull; Adding $L_2$ norm (Weight Decay).</p>
-<p>&bull; Early stopping.</p>
-<p>&bull; Data augmentation.</p>
-<p>&bull; Injecting noise.</p>
-<p>&bull; <span class="b">Dropout</span>: Used only during training.</p>
-<h3>Batch Normalization</h3>
-<p>&bull; Standardizes inputs to a layer for each mini-batch:</p>
-<p>$$\hat{x} = \frac{x - E_B(x)}{\sqrt{\text{Var}_B(x) + \epsilon}} \iff x = \gamma \hat{x} + \beta$$</p>
-<h3>Residual Learning (Skip Connections)</h3>
-<p>&bull; <span class="b">Skip Connection formula</span>: $y = f(x, W)T(x, W) + x(1 - T(x, W))$</p>
-<p>&bull; This allows gradients to flow through the network more easily, facilitating the training of very deep networks.</p>
-<pre>          v
-  +-------------+
-  |  [X]   C    |----.
-  +-------------+    |
-          |          |
-          v          |
-  +---------------------+
-  |  [~]   C    ReLU    |
-  +---------------------+
-          |          |
-          v          |
-  +-------------+    |
-  |  [.]   C    |&lt;---'
-  +-------------+
-</pre></div></div></div><div class='page'><div class='columns'><h1>Page 2: SVM, Unsupervised &amp; Misc (Sec 9-12)</h1><div class='section-header'>9. Support Vector Machines (SVM)</div>
-<p><span class="b">Margin</span>: $\frac{2}{\|w\|}$</p>
-<p><span class="b">Constraints</span>:</p>
-<p>&bull; $w^T x_i + b \geq 1$ for $y_i = +1$</p>
-<p>&bull; $w^T x_i + b \leq -1$ for $y_i = -1$</p>
-<p>&bull; Thus: $y_i(w^T x_i + b) - 1 \geq 0$ for $\forall x_i$</p>
-<p><span class="b">Optimization Problem</span>:</p>
-<p>&bull; Minimize: $\frac{1}{2} w^T w$</p>
-<p>&bull; Subject to: $f_i(w, b) = y_i(w^T x_i + b) - 1 \geq 0$</p>
-<h3>Lagrangian Dual Function</h3>
-<p>&bull; <span class="b">Dual function</span>: $g(\alpha) = \min_{\theta \in \mathbb{R}^d} \left( f_0(\theta) + \sum_{i=1}^M \alpha_i f_i(\theta) \right)$</p>
-<p>&bull; <span class="b">Lagrangian</span>: $L(\theta, \alpha) = f_0(\theta) + \sum_{i=1}^M \alpha_i f_i(\theta)$</p>
-<p>&bull; <span class="b">Conditions</span>: $\alpha_i \geq 0$ and $f_i(\theta) \leq 0$</p>
-<h3>SVM Optimization Steps</h3>
-<p><span class="b">1. Calculate Lagrangian</span>:</p>
-<p>&bull; $L(w, b, \alpha) = \frac{1}{2} w^T w - \sum_{i}^{N} \alpha_i [y_i (w^T x_i + b) - 1]$</p>
-<p><span class="b">2. Minimize L</span>:</p>
-<p>&bull; $\frac{\partial L}{\partial w} = w - \sum_{i}^{N} \alpha_i y_i x_i \stackrel{!}{=} 0$</p>
-<p>&bull; $\frac{\partial L}{\partial b} = \sum_{i}^{N} \alpha_i y_i \stackrel{!}{=} 0$</p>
-<p>&bull; $\Rightarrow w = \sum_{i}^{N} \alpha_i y_i x_i$</p>
-<p><span class="b">3. Dual Problem</span>:</p>
-<p>&bull; $g(\alpha) = \sum_{i}^{N} \alpha_i - \frac{1}{2} \sum_{i}^{N} \sum_{j}^{N} y_i y_j \alpha_i \alpha_j x_i^T x_j$</p>
-<p>&bull; Note: $x_i^T x_j$ can be replaced by Kernel $\Phi(x_i, x_j)$</p>
-<p>&bull; <span class="b">w.r.t.</span> $\alpha_i \geq 0 , \quad \sum_{i}^{N} \alpha_i y_i = 0$</p>
-<p>&bull; $w = \sum_{i}^{N} \alpha_i^* y_i x_i$</p>
-<p>&bull; $b = \frac{1}{y_i} - w^T x_i = y_i - w^T x_i$</p>
-<p>&bull; $\therefore h(x) = \text{sign}(\sum_{i \in S} \alpha_i y_i x_i^T x + b)$</p>
-<p><span class="b">Soft SVM</span> (relaxed margin):</p>
-<p>&bull; <span class="b">Constraint</span>: $y_i (w^T x_i + b) \geq 1 - \xi_i \quad (\xi_i \geq 0)$</p>
-<p>&bull; <span class="b">Minimize</span>: $f_0(w, b, \xi) = \frac{1}{2} w^T w + C \sum_{i}^{N} \xi_i$</p>
-<p>&bull; <span class="b">w.r.t.</span>:</p>
-<p>&bull; $y_i (w^T x_i + b) - 1 + \xi_i \geq 0$</p>
-<p>&bull; $\xi_i \geq 0$</p>
-<p>&bull; ($C \rightarrow \infty$: hard margin)</p>
-<h3>Soft Margin SVM Derivation</h3>
-<p><span class="b">1. Lagrangian Formulation</span>:</p>
-<p>$$L(w, b, \xi, \alpha, \mu) = \frac{1}{2} w^T w + C \sum_{i}^{N} \xi_i - \sum_{i}^{N} \alpha_i [y_i(w^T x_i + b) - 1 + \xi_i] - \sum_{i}^{N} \mu_i \xi_i$$</p>
-<p><span class="b">2. Minimize L (Gradients)</span>:</p>
-<p>&bull; $\frac{\partial L}{\partial w} = w - \sum_{i}^{N} \alpha_i y_i x_i \stackrel{!}{=} 0$</p>
-<p>&bull; $\frac{\partial L}{\partial b} = \sum_{i}^{N} \alpha_i y_i \stackrel{!}{=} 0$</p>
-<p>&bull; $\frac{\partial L}{\partial \xi_i} = C - \alpha_i - \mu_i \stackrel{!}{=} 0 \Rightarrow \alpha_i = C - \mu_i$</p>
-<p>&bull; Since $\mu_i \geq 0$ and $\alpha_i \geq 0$: <span class="b">Box Constraint</span> $\alpha_i \in [0, C]$</p>
-<p><span class="b">3. Maximize Dual Function</span>:</p>
-<p>$$g(\alpha) = \sum_{i}^{N} \alpha_i - \frac{1}{2} \sum_{i}^{N} \sum_{j}^{N} y_i y_j \alpha_i \alpha_j x_i^T x_j$$</p>
-<p><span class="b">Subject to</span>:</p>
-<p>&bull; $\sum_{i}^{N} \alpha_i y_i = 0$</p>
-<p>&bull; $0 \leq \alpha_i \leq C$</p>
-<p><span class="b">Interpretation of $\alpha_i$</span>:</p>
-<p>&bull; If $0 < \alpha_i < C$: $\xi_i = 0$ (point exactly on margin)</p>
-<p>&bull; If $\alpha_i = C$: $\xi_i > 0$ (point violates margin)</p>
-<p>&bull; Larger $C$ → less tolerance for points inside margin</p>
-<p><span class="b">Hinge Loss</span>:</p>
-<p>$$\frac{1}{2} w^T w + C \sum_{i}^{N} \max \{ 0, 1 - y_i(w^T x_i + b) \}$$</p>
-<h3>Kernel Methods</h3>
-<p><span class="b">Definition</span>: $k(x_i, x_j) = \phi(x_i)^T \phi(x_j)$</p>
-<p><span class="b">Prediction</span>: $h(x) = \text{sign}\left( \sum_{j \in S} \alpha_i y_i k(x_i, x) + b \right)$</p>
-<p><span class="b">Kernel Matrix Properties</span>: Must be symmetric positive semi-definite</p>
-<p><span class="b">Valid Kernel Construction Rules</span>:</p>
-<p>1. <span class="b">Sum</span>: $k(x_1, x_2) = k_1 + k_2$</p>
-<p>2. <span class="b">Scaling</span>: $k(x_1, x_2) = c k_1$ with $c > 0$</p>
-<p>3. <span class="b">Product</span>: $k(x_1, x_2) = k_1 \cdot k_2$</p>
-<p>4. <span class="b">Transformation</span>: $k(x_1, x_2) = k_3(\phi(x_1), \phi(x_2))$</p>
-<p>5. <span class="b">Matrix Scaling</span>: $k(x_1, x_2) = x_1^T A x_2$ where $A$ is symmetric positive semi-definite</p>
-<p><span class="b">Common Examples</span>:</p>
-<p>&bull; <span class="b">Polynomial</span>: $k(a, b) = (a^T b)^n$ or $(a^T b + 1)^P$</p>
-<p>&bull; <span class="b">Gaussian (RBF)</span>: $k(a, b) = \exp \left( - \frac{\|a - b\|^2}{2\sigma^2} \right)$</p>
-<h3>Multiclass Classification Strategies</h3>
-<p>&bull; <span class="b">1 vs n classification</span>: Look at maximum distance</p>
-<p>&bull; <span class="b">1 vs 1 classification</span>: Look at majority vote</p>
-
+<div class="box"><p><span class="b">CNN Kernel Parameters</span>: $L \times M \times C_{in} \times C_{out}$</p></div>
+<div class="box"><h3>Padding</h3></div>
+<div class="box"><p>&bull; <span class="b">VALID</span>: No padding, $D_{l+1} = (D_l - K) + 1$</p></div>
+<div class="box"><p>&bull; <span class="b">SAME</span>: Add $P = \lfloor \frac{K}{2} \rfloor$ padding on each side to keep size</p></div>
+<div class="box"><p>&bull; <span class="b">FULL</span>: Add $P = K - 1$ on each side to increase size</p></div>
+<div class="box"><h3>Stride &amp; Pooling</h3></div>
+<div class="box"><p><span class="b">Stride</span>: Step size ($>1$ results in downsampling)</p></div>
+<div class="box"><p>&bull; $D_{l+1} = \lfloor \frac{D_l + 2P - K}{S} \rfloor + 1$</p></div>
+<div class="box"><p><span class="b">Pooling</span>:</p></div>
+<div class="box"><p>&bull; <span class="b">Max pooling</span>: Take maximum value</p></div>
+<div class="box"><p>&bull; <span class="b">Mean pooling</span>: Take average value</p></div>
+<div class="box"><h3>Initialization &amp; Training Issues</h3></div>
+<div class="box"><p><span class="b">Gradient Problems</span>:</p></div>
+<div class="box"><p>&bull; <span class="b">Vanishing gradient</span>: $W$ becomes too small</p></div>
+<div class="box"><p>&bull; <span class="b">Exploding gradient</span>: $W$ becomes too large</p></div>
+<div class="box"><p><span class="b">Xavier Initialization</span>:</p></div>
+<div class="box"><p>&bull; $\text{Var}(W) = \frac{2}{fan\_in + fan\_out}$</p></div>
+<div class="box"><p>&bull; <span class="b">Uniform</span>: $W \sim \text{Uniform} \left( -\sqrt{\frac{6}{fan\_in + fan\_out}}, \sqrt{\frac{6}{fan\_in + fan\_out}} \right)$</p></div>
+<div class="box"><p>&bull; <span class="b">Normal</span>: $W \sim \mathcal{N} \left( 0, \frac{2}{fan\_in + fan\_out} \right)$</p></div>
+<div class="box"><p>&bull; Used for saturating activations like sigmoid and tanh</p></div>
+<div class="box"><h2 class="hl-y">Regularization &amp; Normalization</h2></div>
+<div class="box"><p>&bull; <span class="b">Regularization techniques</span>:</p></div>
+<div class="box"><p>&bull; Adding $L_2$ norm (Weight Decay).</p></div>
+<div class="box"><p>&bull; Early stopping.</p></div>
+<div class="box"><p>&bull; Data augmentation.</p></div>
+<div class="box"><p>&bull; Injecting noise.</p></div>
+<div class="box"><p>&bull; <span class="b">Dropout</span>: Used only during training.</p></div>
+<div class="box"><h3>Batch Normalization</h3></div>
+<div class="box"><p>&bull; Standardizes inputs to a layer for each mini-batch:</p></div>
+<div class="box">    $$\hat{x} = \frac{x - E_B(x)}{\sqrt{\text{Var}_B(x) + \epsilon}} \iff x = \gamma \hat{x} + \beta$$</div>
+<div class="box"><h3>Residual Learning (Skip Connections)</h3></div>
+<div class="box"><p>&bull; <span class="b">Skip Connection formula</span>: $y = f(x, W)T(x, W) + x(1 - T(x, W))$</p></div>
+<div class="box"><p>&bull; This allows gradients to flow through the network more easily, facilitating the training of very deep networks.</p></div></div></div><div class='page'><div class='columns'><div class='section-header'>9. Support Vector Machines (SVM)</div>
+<div class="box"><p><span class="b">Margin</span>: $\frac{2}{\|w\|}$</p></div>
+<div class="box"><p><span class="b">Constraints</span>:</p></div>
+<div class="box"><p>&bull; $w^T x_i + b \geq 1$ for $y_i = +1$</p></div>
+<div class="box"><p>&bull; $w^T x_i + b \leq -1$ for $y_i = -1$</p></div>
+<div class="box"><p>&bull; Thus: $y_i(w^T x_i + b) - 1 \geq 0$ for $\forall x_i$</p></div>
+<div class="box"><p><span class="b">Optimization Problem</span>:</p></div>
+<div class="box"><p>&bull; Minimize: $\frac{1}{2} w^T w$</p></div>
+<div class="box"><p>&bull; Subject to: $f_i(w, b) = y_i(w^T x_i + b) - 1 \geq 0$</p></div>
+<div class="box"><h3>Lagrangian Dual Function</h3></div>
+<div class="box"><p>&bull; <span class="b">Dual function</span>: $g(\alpha) = \min_{\theta \in \mathbb{R}^d} \left( f_0(\theta) + \sum_{i=1}^M \alpha_i f_i(\theta) \right)$</p></div>
+<div class="box"><p>&bull; <span class="b">Lagrangian</span>: $L(\theta, \alpha) = f_0(\theta) + \sum_{i=1}^M \alpha_i f_i(\theta)$</p></div>
+<div class="box"><p>&bull; <span class="b">Conditions</span>: $\alpha_i \geq 0$ and $f_i(\theta) \leq 0$</p></div>
+<div class="box"><h3>SVM Optimization Steps</h3></div>
+<div class="box"><p><span class="b">1. Calculate Lagrangian</span>:</p></div>
+<div class="box"><p>&bull; $L(w, b, \alpha) = \frac{1}{2} w^T w - \sum_{i}^{N} \alpha_i [y_i (w^T x_i + b) - 1]$</p></div>
+<div class="box"><p><span class="b">2. Minimize L</span>:</p></div>
+<div class="box"><p>&bull; $\frac{\partial L}{\partial w} = w - \sum_{i}^{N} \alpha_i y_i x_i \stackrel{!}{=} 0$</p></div>
+<div class="box"><p>&bull; $\frac{\partial L}{\partial b} = \sum_{i}^{N} \alpha_i y_i \stackrel{!}{=} 0$</p></div>
+<div class="box"><p>&bull; $\Rightarrow w = \sum_{i}^{N} \alpha_i y_i x_i$</p></div>
+<div class="box"><p><span class="b">3. Dual Problem</span>:</p></div>
+<div class="box"><p>&bull; $g(\alpha) = \sum_{i}^{N} \alpha_i - \frac{1}{2} \sum_{i}^{N} \sum_{j}^{N} y_i y_j \alpha_i \alpha_j x_i^T x_j$</p></div>
+<div class="box"><p>&bull; Note: $x_i^T x_j$ can be replaced by Kernel $\Phi(x_i, x_j)$</p></div>
+<div class="box"><p>&bull; <span class="b">w.r.t.</span> $\alpha_i \geq 0 , \quad \sum_{i}^{N} \alpha_i y_i = 0$</p></div>
+<div class="box"><p>&bull; $w = \sum_{i}^{N} \alpha_i^* y_i x_i$</p></div>
+<div class="box"><p>&bull; $b = \frac{1}{y_i} - w^T x_i = y_i - w^T x_i$</p></div>
+<div class="box"><p>&bull; $\therefore h(x) = \text{sign}(\sum_{i \in S} \alpha_i y_i x_i^T x + b)$</p></div>
+<div class="box"><p><span class="b">Soft SVM</span> (relaxed margin):</p></div>
+<div class="box"><p>&bull; <span class="b">Constraint</span>: $y_i (w^T x_i + b) \geq 1 - \xi_i \quad (\xi_i \geq 0)$</p></div>
+<div class="box"><p>&bull; <span class="b">Minimize</span>: $f_0(w, b, \xi) = \frac{1}{2} w^T w + C \sum_{i}^{N} \xi_i$</p></div>
+<div class="box"><p>&bull; <span class="b">w.r.t.</span>:</p></div>
+<div class="box"><p>&bull; $y_i (w^T x_i + b) - 1 + \xi_i \geq 0$</p></div>
+<div class="box"><p>&bull; $\xi_i \geq 0$</p></div>
+<div class="box"><p>&bull; ($C \rightarrow \infty$: hard margin)</p></div>
+<div class="box"><h3>Soft Margin SVM Derivation</h3></div>
+<div class="box"><p><span class="b">1. Lagrangian Formulation</span>:</p></div>
+<div class="box">$$L(w, b, \xi, \alpha, \mu) = \frac{1}{2} w^T w + C \sum_{i}^{N} \xi_i - \sum_{i}^{N} \alpha_i [y_i(w^T x_i + b) - 1 + \xi_i] - \sum_{i}^{N} \mu_i \xi_i$$</div>
+<div class="box"><p><span class="b">2. Minimize L (Gradients)</span>:</p></div>
+<div class="box"><p>&bull; $\frac{\partial L}{\partial w} = w - \sum_{i}^{N} \alpha_i y_i x_i \stackrel{!}{=} 0$</p></div>
+<div class="box"><p>&bull; $\frac{\partial L}{\partial b} = \sum_{i}^{N} \alpha_i y_i \stackrel{!}{=} 0$</p></div>
+<div class="box"><p>&bull; $\frac{\partial L}{\partial \xi_i} = C - \alpha_i - \mu_i \stackrel{!}{=} 0 \Rightarrow \alpha_i = C - \mu_i$</p></div>
+<div class="box"><p>&bull; Since $\mu_i \geq 0$ and $\alpha_i \geq 0$: <span class="b">Box Constraint</span> $\alpha_i \in [0, C]$</p></div>
+<div class="box"><p><span class="b">3. Maximize Dual Function</span>:</p></div>
+<div class="box">$$g(\alpha) = \sum_{i}^{N} \alpha_i - \frac{1}{2} \sum_{i}^{N} \sum_{j}^{N} y_i y_j \alpha_i \alpha_j x_i^T x_j$$</div>
+<div class="box"><p><span class="b">Subject to</span>:</p></div>
+<div class="box"><p>&bull; $\sum_{i}^{N} \alpha_i y_i = 0$</p></div>
+<div class="box"><p>&bull; $0 \leq \alpha_i \leq C$</p></div>
+<div class="box"><p><span class="b">Interpretation of $\alpha_i$</span>:</p></div>
+<div class="box"><p>&bull; If $0 < \alpha_i < C$: $\xi_i = 0$ and $y_i (w^\top x_i + b) = 1$ (point lies exactly on the margin)</p></div>
+<div class="box"><p>&bull; If $\alpha_i = C$: $\xi_i > 0$ (point violates the margin)</p></div>
+<div class="box"><p>&bull; If $0 < \xi_i < 1$: $0 < y_i (w^\top x_i + b) < 1$, point is inside the margin but correctly classified</p></div>
+<div class="box"><p>&bull; If $\xi_i \ge 1$: $y_i (w^\top x_i + b) \le 0$, point is misclassified</p></div>
+<div class="box"><p>&bull; Larger $C$ → less tolerance for points inside the margin</p></div>
+<div class="box"><p><span class="b">Hinge Loss</span>:</p></div>
+<div class="box">$$\frac{1}{2} w^T w + C \sum_{i}^{N} \max \{ 0, 1 - y_i(w^T x_i + b) \}$$</div>
+<div class="box"><h3>Kernel Methods</h3></div>
+<div class="box"><p><span class="b">Definition</span>: $k(x_i, x_j) = \phi(x_i)^T \phi(x_j)$</p></div>
+<div class="box"><p><span class="b">Prediction</span>: $h(x) = \text{sign}\left( \sum_{j \in S} \alpha_i y_i k(x_i, x) + b \right)$</p></div>
+<div class="box"><p><span class="b">Kernel Matrix Properties, Mercer</span>: Must be symmetric positive semi-definite</p></div>
+<div class="box"><p>$c^T K c \ge 0$</p></div>
+<div class="box"><p>$\text{Sum} = \sum_{i} \sum_{j} c_i c_j k(\mathbf{x}_i, \mathbf{x}_j) \ge 0$</p></div>
+<div class="box"><p><span class="b">Valid Kernel Construction Rules</span>:</p></div>
+<div class="box"><p>1. <span class="b">Sum</span>: $k(x_1, x_2) = k_1 + k_2$</p></div>
+<div class="box"><p>2. <span class="b">Scaling</span>: $k(x_1, x_2) = c k_1$ with $c > 0$</p></div>
+<div class="box"><p>3. <span class="b">Product</span>: $k(x_1, x_2) = k_1 \cdot k_2$</p></div>
+<div class="box"><p>4. <span class="b">Transformation</span>: $k(x_1, x_2) = k_3(\phi(x_1), \phi(x_2))$</p></div>
+<div class="box"><p>5. <span class="b">Matrix Scaling</span>: $k(x_1, x_2) = x_1^T A x_2$ where $A$ is symmetric positive semi-definite</p></div>
+<div class="box"><p><span class="b">Common Examples</span>:</p></div>
+<div class="box"><p>&bull; <span class="b">Polynomial</span>: $k(a, b) = (a^T b)^n$ or $(a^T b + 1)^P$</p></div>
+<div class="box"><p>&bull; <span class="b">Gaussian (RBF)</span>: $k(a, b) = \exp \left( - \frac{\|a - b\|^2}{2\sigma^2} \right)$</p></div>
+<div class="box"><p><span class="b">Mercer Theorem</span>: $\text{Sum} = \sum_{i} \sum_{j} c_i c_j k(\mathbf{x}_i, \mathbf{x}_j) \ge 0$ / The Gram matrix must be PSD" ($c^T K c \ge 0$) see Convexity Section</p></div>
+<div class="box"><h3>Multiclass Classification Strategies</h3></div>
+<div class="box"><p>&bull; <span class="b">1 vs n classification</span>: Look at maximum distance</p></div>
+<div class="box"><p>&bull; <span class="b">1 vs 1 classification</span>: Look at majority vote</p></div>
 <div class='section-header'>10. Dimension Reduction PCA SVD</div>
-
-<div class='box'><h2 class='hl-c'>Dimension Reduction (PCA)</h2><p><span class="b">Transformation</span>: $\vec{x}' = \vec{x} \cdot F \quad \Sigma_{x'} = F^T \Sigma_x F$</p>
-<h3>1. Centering Data</h3>
-<p>$\tilde{x}_i = x_i - \bar{x}$ where $\bar{x} = \begin{bmatrix} \bar{x}_1 \\ \vdots \\ \bar{x}_d \end{bmatrix} = \frac{1}{N} \cdot X^T \cdot 1_N$</p>
-<h3>2. Variance and Covariance</h3>
-<p>&bull; <span class="b">Variance</span>: $\text{Var}(X_j) = \frac{1}{N} X_j^T X_j - \bar{x}_j^2$</p>
-<p>&bull; <span class="b">Covariance</span>: $\text{Cov}(X_i, X_j) = \frac{1}{N} X_i^T X_j - \bar{x}_i \bar{x}_j$</p>
-<p>&bull; <span class="b">Covariance Matrix</span>: $\Sigma_{\tilde{X}} = \frac{1}{N} \tilde{X}^T \tilde{X}$ (symmetric)</p>
-<h3>3. Eigen-decomposition</h3>
-<p>$\Sigma_{\tilde{X}} = \Gamma \Lambda \Gamma^T$ (where $\Lambda$ is diagonal)</p>
-<h3>4. Transformation</h3>
-<p>&bull; $Y = \tilde{X} \cdot \Gamma$</p>
-<p>&bull; $Y_{reduced} = \tilde{X} \cdot \Gamma_{truncated}$</p>
-<p>&bull; <span class="b">Criteria</span>: Retain 90% of variance: $\sum_{i=1}^k \lambda_i \geq 0.9 \sum_{i=1}^d \lambda_i$</p>
-<p>&bull; <span class="b">Complexity</span>: $O(nd^2 + d^3)$</p>
-<h3>5. Iterative Eigenvector Calculation</h3>
-<p><span class="b">Power Iteration</span>: $v \leftarrow \frac{A \cdot v}{\|A \cdot v\|}$ (converges to eigenvector with largest eigenvalue)</p></div>
-<div class='box'><h2 class='hl-g'>Singular Value Decomposition (SVD)</h2><p><span class="b">Goal</span>: Find best low-rank approximation of matrix $A$</p>
-<p><span class="b">Frobenius Norm Objective</span>: $\|A - B\|_F^2 = \sum_{i}^n \sum_{j}^D (a_{ij} - b_{ij})^2$</p>
-<p><span class="b">Complexity</span>: $O(n \cdot d^2)$ or $O(n^2 \cdot d)$</p>
-<p><span class="b">Decomposition</span>: $A = U \Sigma V^T$ where:</p>
-<p>&bull; $U \in \mathbb{R}^{n \times r}$ (user-to-concept similarity)</p>
-<p>&bull; $\Sigma \in \mathbb{R}^{r \times r}$</p>
-<p>&bull; $V \in \mathbb{R}^{d \times r}$ (item-to-concept similarity)</p>
-<p><span class="b">Rank-2 Decomposition</span>: $A = (\sigma_1 \cdot u_1 \cdot v_1^T) + (\sigma_2 \cdot u_2 \cdot v_2^T)$</p>
-<h3>Using SVD for Dimensionality Reduction</h3>
-<p><span class="b">Projection</span>: $P = U \Sigma$ or $P = A \cdot V$</p>
-<p><span class="b">Retain 90% energy</span>: $\sum_{i=1}^k \sigma_i^2 \geq 0.9 \sum_{i=1}^r \sigma_i^2$</p>
-<p><span class="b">Relationship to Eigenvectors</span>:</p>
-<p>&bull; $V$ contains eigenvectors of $X^T X$</p>
-<p>&bull; $U$ contains eigenvectors of $XX^T$</p></div>
-<div class='box'><h2 class='hl-p'>Matrix Factorization (MF)</h2><h3>1. Fundamentals &amp; Metrics</h3>
-<p><span class="b">RMSE</span>: $RMSE = \sqrt{\frac{1}{|S|} \sum (r_{ui} - \hat{r}_{ui})^2}$</p>
-<p><span class="b">SSE</span>: $SSE = \sum (r_{ui} - [U \Sigma V^T]_{ui})^2$</p>
-<p><span class="b">Decomposition</span>: $R = U \Sigma V^T \approx Q \cdot P^T$</p>
-<p><span class="b">Prediction</span>: $\hat{r}_{ui} = q_u \cdot p_i^T$</p>
-<h3>2. Alternating Optimization</h3>
-<p>1. <span class="b">Initialize</span>: $P_0, Q_0, t=0$</p>
-<p>2. <span class="b">Update P</span>: $P_{t+1} = \text{argmin}_P f(P, Q_t)$</p>
-<p>&bull; Closed form: $p_i^T = \left(\frac{1}{|S_{*,i}|} \sum q_u^T q_u\right)^{-1} \cdot \frac{1}{|S_{*,i}|} \sum q_u^T r_{ui}$</p>
-<p>3. <span class="b">Update Q</span>: $Q_{t+1} = \text{argmin}_Q f(P_{t+1}, Q)$</p>
-<p>4. <span class="b">Repeat</span> until convergence</p>
-<h3>3. Stochastic Gradient Descent (SGD)</h3>
-<p>&bull; $e_{ui} \leftarrow r_{ui} - q_u \cdot p_i^T$</p>
-<p>&bull; $q_u \leftarrow q_u + 2r(e_{ui} p_i)$</p>
-<p>&bull; $p_i \leftarrow p_i + 2r(e_{ui} q_u)$ ($r$: learning rate)</p>
-<h3>4. Extensions: Bias &amp; Regularization</h3>
-<p><span class="b">Regularized Objective</span>:</p>
-<p>$$\sum (r_{ui} - q_u \cdot p_i^T)^2 + \lambda_1 \sum \|q_u\|^2 + \lambda_2 \sum \|p_i\|^2$$</p>
-<p><span class="b">Full Loss with Bias</span>:</p>
-<p>$$L = \sum (r_{ui} - (q_u p_i^T + b_u + b_i + b))^2 + \lambda_1 \sum \|q_u\|^2 + \lambda_2 \sum \|p_i\|^2$$</p>
-<p><span class="b">SGD Updates (with Bias &amp; Regularization)</span>:</p>
-<p>1. $e_{ui} = r_{ui} - q_u \cdot p_i^T$</p>
-<p>2. $q_u = q_u + 2r (e_{ui} p_i - \lambda_1 q_u)$</p>
-<p>3. $p_i = p_i + 2r (e_{ui} q_u - \lambda_2 p_i)$</p>
-<p>4. $b_u = b_u + 2r e_{ui}$</p>
-<p>5. $b_i = b_i + 2r e_{ui}$</p>
-<p>6. $b = \frac{1}{|S|} \sum r_{ui}$ (Global Bias)</p></div>
+<div class="box"><h2 class="hl-c">Dimension Reduction (PCA)</h2></div>
+<div class="box"><p><span class="b">Transformation</span>: $\vec{x}' = \vec{x} \cdot F \quad \Sigma_{x'} = F^T \Sigma_x F$</p></div>
+<div class="box"><p>(Minimizing Error = Maximizing Variance)</p></div>
+<div class="box"><h3>1. Centering Data</h3></div>
+<div class="box"><p>$\tilde{x}_i = x_i - \bar{x}$ where $\bar{x} = \begin{bmatrix} \bar{x}_1 \\ \vdots \\ \bar{x}_d \end{bmatrix} = \frac{1}{N} \cdot X^T \cdot 1_N$</p></div>
+<div class="box"><h3>2. Variance and Covariance</h3></div>
+<div class="box"><p>&bull; <span class="b">Variance</span>: $\text{Var}(X_j) = \frac{1}{N} X_j^T X_j - \bar{x}_j^2$</p></div>
+<div class="box"><p>&bull; <span class="b">Covariance</span>: $\text{Cov}(X_i, X_j) = \frac{1}{N} X_i^T X_j - \bar{x}_i \bar{x}_j$</p></div>
+<div class="box"><p>&bull; <span class="b">Covariance Matrix</span>: $\Sigma_{\tilde{X}} = \frac{1}{N} \tilde{X}^T \tilde{X}$ (symmetric)</p></div>
+<div class="box"><h3>3. Eigen-decomposition</h3></div>
+<div class="box"><p>$\Sigma_{\tilde{X}} = \Gamma \Lambda \Gamma^T$ (where $\Lambda$ is diagonal)</p></div>
+<div class="box"><h3>4. Transformation</h3></div>
+<div class="box"><p>&bull; $Y = \tilde{X} \cdot \Gamma$</p></div>
+<div class="box"><p>&bull; $Y_{reduced} = \tilde{X} \cdot \Gamma_{truncated}$</p></div>
+<div class="box"><p>&bull; Reconstruction: $\tilde{X}{reconstructed} = Y{reduced} \cdot \Gamma_{truncated}^T$ (back to original dims)</p></div>
+<div class="box"><p>&bull; <span class="b">Criteria</span>: Retain 90% of variance: $\sum_{i=1}^k \lambda_i \geq 0.9 \sum_{i=1}^d \lambda_i$</p></div>
+<div class="box"><p>&bull; <span class="b">Complexity</span>: $O(nd^2 + d^3)$</p></div>
+<div class="box"><h3>5. Iterative Eigenvector Calculation</h3></div>
+<div class="box"><p><span class="b">Power Iteration</span>: $v \leftarrow \frac{A \cdot v}{\|A \cdot v\|}$ (converges to eigenvector with largest eigenvalue)</p></div>
+<div class="box"><h2 class="hl-g">Singular Value Decomposition (SVD)</h2></div>
+<div class="box"><p><span class="b">Goal</span>: Find best low-rank approximation of matrix $A$</p></div>
+<div class="box"><p><span class="b">Frobenius Norm Objective</span>: $\|A - B\|_F^2 = \sum_{i}^n \sum_{j}^D (a_{ij} - b_{ij})^2$</p></div>
+<div class="box"><p><span class="b">Complexity</span>: $O(n \cdot d^2)$ or $O(n^2 \cdot d)$</p></div>
+<div class="box"><p><span class="b">Decomposition</span>: $A = U \Sigma V^T$ where:</p></div>
+<div class="box"><p>&bull; $U \in \mathbb{R}^{n \times r}$ (user-to-concept similarity)</p></div>
+<div class="box"><p>&bull; $\Sigma \in \mathbb{R}^{r \times r}$</p></div>
+<div class="box"><p>&bull; $V \in \mathbb{R}^{d \times r}$ (item-to-concept similarity)</p></div>
+<div class="box"><p><span class="b">Rank-2 Decomposition</span>: $A = (\sigma_1 \cdot u_1 \cdot v_1^T) + (\sigma_2 \cdot u_2 \cdot v_2^T)$</p></div>
+<div class="box"><p><span class="b">EYM</span></p></div>
+<div class="box"><p>$\mathbf{A} = \mathbf{U} \boldsymbol{\Sigma} \mathbf{V}^T = \sum_{i=1}^{\min(m,n)} \sigma_i \mathbf{u}_i \mathbf{v}_i^T$</p></div>
+<div class="box"><h3>Using SVD for Dimensionality Reduction</h3></div>
+<div class="box"><p><span class="b">Projection</span>: $P = U \Sigma$ or $P = A \cdot V$</p></div>
+<div class="box"><p><span class="b">Reconstruction</span>: $A_{reconstructed} = U_k \Sigma_k V_k^T$ or $A_{reconstructed} = P \cdot V_k^T$</p></div>
+<div class="box"><p><span class="b">Retain 90% energy</span>: $\sum_{i=1}^k \sigma_i^2 \geq 0.9 \sum_{i=1}^r \sigma_i^2$</p></div>
+<div class="box"><p><span class="b">Relationship to Eigenvectors</span>:</p></div>
+<div class="box"><p>&bull; $V$ contains eigenvectors of $X^T X$</p></div>
+<div class="box"><p>&bull; $U$ contains eigenvectors of $XX^T$</p></div>
+<div class="box"><h3>SVD vs PCA</h3></div>
+<div class="box"><p>&bull; Eigenvectors = Singular Vectors; (N)Eigenvalues = (Singular Values)^2</p></div>
+<div class="box"><p>&bull; Transform the data such that dimensions of new space are uncorrelated + discard (new) dimensions with smallest variance = find optimal low-rank approximation(norm_F)</p></div>
+<div class="box"><h2 class="hl-p">Matrix Factorization (MF)</h2></div>
+<div class="box"><h3>1. Fundamentals &amp; Metrics</h3></div>
+<div class="box"><p><span class="b">RMSE</span>: $\sqrt{\frac{1}{|S|} \sum (r_{ui} - \hat{r}_{ui})^2}$</p></div>
+<div class="box"><p><span class="b">SSE</span>: $\sum (r_{ui} - [U \Sigma V^T]_{ui})^2$</p></div>
+<div class="box"><p><span class="b">Decomposition</span>: $R = U \Sigma V^T \approx Q \cdot P^T$</p></div>
+<div class="box"><p><span class="b">Prediction</span>: $\hat{r}_{ui} = q_u \cdot p_i^T$</p></div>
+<div class="box"><h3>2. Alternating Optimization</h3></div>
+<div class="box"><p>1. <span class="b">Initialize</span>: $P_0, Q_0, t=0$</p></div>
+<div class="box"><p>2. <span class="b">Update P</span>: $P_{t+1} = \text{argmin}_P f(P, Q_t)$</p></div>
+<div class="box"><p>&bull; Closed form: $p_i^T = \left(\frac{1}{|S_{*,i}|} \sum q_u^T q_u\right)^{-1} \cdot \frac{1}{|S_{*,i}|} \sum q_u^T r_{ui}$</p></div>
+<div class="box"><p>3. <span class="b">Update Q</span>: $Q_{t+1} = \text{argmin}_Q f(P_{t+1}, Q)$</p></div>
+<div class="box"><p>4. <span class="b">Repeat</span> until convergence</p></div>
+<div class="box"><h3>3. Stochastic Gradient Descent (SGD)</h3></div>
+<div class="box"><p>&bull; $e_{ui} \leftarrow r_{ui} - q_u \cdot p_i^T$</p></div>
+<div class="box"><p>&bull; $q_u \leftarrow q_u + 2r(e_{ui} p_i)$</p></div>
+<div class="box"><p>&bull; $p_i \leftarrow p_i + 2r(e_{ui} q_u)$ ($r$: learning rate)</p></div>
+<div class="box"><h3>4. Extensions: Bias &amp; Regularization</h3></div>
+<div class="box"><p><span class="b">Regularized Objective</span>:</p></div>
+<div class="box">$$\sum (r_{ui} - q_u \cdot p_i^T)^2 + \lambda_1 \sum \|q_u\|^2 + \lambda_2 \sum \|p_i\|^2$$</div>
+<div class="box"><p><span class="b">Full Loss with Bias</span>:</p></div>
+<div class="box">$$L = \sum (r_{ui} - (q_u p_i^T + b_u + b_i + b))^2 + \lambda_1 \sum \|q_u\|^2 + \lambda_2 \sum \|p_i\|^2$$</div>
+<div class="box"><p><span class="b">SGD Updates (with Bias &amp; Regularization)</span>:</p></div>
+<div class="box"><p>1. $e_{ui} = r_{ui} - q_u \cdot p_i^T$</p></div>
+<div class="box"><p>2. $q_u = q_u + 2r (e_{ui} p_i - \lambda_1 q_u)$</p></div>
+<div class="box"><p>3. $p_i = p_i + 2r (e_{ui} q_u - \lambda_2 p_i)$</p></div>
+<div class="box"><p>4. $b_u = b_u + 2r e_{ui}$</p></div>
+<div class="box"><p>5. $b_i = b_i + 2r e_{ui}$</p></div>
+<div class="box"><p>6. $b = \frac{1}{|S|} \sum r_{ui}$ (Global Bias)</p></div>
 <div class='section-header'>11. Dimension Reduction Neighbor Graph Method</div>
-
-<div class='box'><h2 class='hl-y'>Neighbor Graph Method</h2><p><span class="b">Preserve local structure</span></p>
-<p>Plaintext</p>
-<pre>      Scatter Plot (High Dim)            Adjacency Matrix (Graph)
-      ^
-      |   x                               x x x o o o o o
-      | x   x                             x x o . . . . .
-      |       o                           x o x . . . . .
-      |     o   o                         o . . x x . . .
-      |           .                       o . . x x . . .
-      |         .   .                     o . . . . x . .
-      +-------------------&gt;               o . . . . . x .
-</pre></div>
-<div class='box'><h2 class='hl-c'>t-SNE</h2><p><span class="b">High-dimensional similarity</span>:</p>
-<p>$$p_{j|i} = \frac{\exp(-\frac{\|x_i - x_j\|^2}{2\sigma_i^2})}{\sum_{k \neq i} \exp(-\frac{\|x_i - x_k\|^2}{2\sigma_i^2})}$$</p>
-<p>&bull; <span class="b">Data $X$</span></p>
-<p>&bull; $p_{ii} = 0$, $p_{ij} = \frac{p_{j|i} + p_{i|j}}{2N}$</p>
-<p>&bull; $p_{ij} = p_{ji}$</p>
-<p><span class="b">Low-dimensional similarity</span>:</p>
-<p>$$q_{ij} = \frac{(1 + \|y_i - y_j\|^2)^{-1}}{\sum_k \sum_{l \neq k} (1 + \|y_k - y_l\|^2)^{-1}}$$</p>
-<p>&bull; <span class="b">Target $y$</span></p>
-<p>&bull; $q_{ii} = 0$</p>
-<p><span class="b">Next: minimize KL Divergence</span></p>
-<p>$$\sum_i \sum_{j \neq i} p_{ij} \log \frac{p_{ij}}{q_{ij}} = KL(P||Q)$$</p>
-<p>&bull; $KL(P||Q) \geq 0$, $= 0$ iff $P=Q$</p>
-<p><span class="b">Divergence Behavior</span>:</p>
-<p>Plaintext</p>
-<pre>      / \
-     /   \       KL(P||Q)
-    /_____\      Mean-seeking (Covers the whole distribution)
-   /       \
-</pre>
-<p>Plaintext</p>
-<pre>      _
-     / \   _     KL(P||Q)
-    /   \ / \    Mode-seeking (Locks onto specific modes)
-___/_____\___\_
-</pre></div>
-<div class='box'><h2 class='hl-g'>Autoencoder</h2><p>Plaintext</p>
-<pre>       o o o o       &lt;-- Input x
-        \   /
-         \ /         &lt;-- Encoder
-          v
-         o o         &lt;-- Bottleneck (L &lt;&lt; D)
-          ^
-         / \         &lt;-- Decoder
-        /   \
-       o o o o       &lt;-- Output x_hat
-</pre>
-<p><span class="b">Notes</span>:</p>
-<p>&bull; Extract key features and reconstruct; equivalent to only taking <span class="b">rank(X) = L</span>.</p>
-<p>&bull; <span class="b">Formula</span>: $X W_1 W_2 = \hat{X}$</p>
-<p>&bull; $W_1 W_2 = W^* = \Gamma$</p>
-<p>&bull; $\Gamma$ is the <span class="b">largest L eigenvectors of $X^T X$</span>.</p></div>
+<div class="box"><h2 class="hl-y">Neighbor Graph Method</h2></div>
+<div class="box"><p><span class="b">Preserve local structure</span></p></div>
+<div class="box"><p>Scatter Plot (High Dim) vs Adjacency Matrix (Graph)</p></div>
+<div class="box"><h2 class="hl-c">t-SNE</h2></div>
+<div class="box"><p><span class="b">High-dimensional similarity</span>:</p></div>
+<div class="box">$$p_{j|i} = \frac{\exp(-\frac{\|x_i - x_j\|^2}{2\sigma_i^2})}{\sum_{k \neq i} \exp(-\frac{\|x_i - x_k\|^2}{2\sigma_i^2})}$$</div>
+<div class="box"><p>&bull; <span class="b">Data $X$</span></p></div>
+<div class="box"><p>&bull; $p_{ii} = 0$, $p_{ij} = \frac{p_{j|i} + p_{i|j}}{2N}$</p></div>
+<div class="box"><p>&bull; $p_{ij} = p_{ji}$</p></div>
+<div class="box"><p><span class="b">Low-dimensional similarity</span>:</p></div>
+<div class="box">$$q_{ij} = \frac{(1 + \|y_i - y_j\|^2)^{-1}}{\sum_k \sum_{l \neq k} (1 + \|y_k - y_l\|^2)^{-1}}$$</div>
+<div class="box"><p>&bull; <span class="b">Target $y$</span></p></div>
+<div class="box"><p>&bull; $q_{ii} = 0$</p></div>
+<div class="box"><p><span class="b">Next: minimize KL Divergence</span></p></div>
+<div class="box">$$\sum_i \sum_{j \neq i} p_{ij} \log \frac{p_{ij}}{q_{ij}} = KL(P||Q)$$</div>
+<div class="box"><p>&bull; $KL(P||Q) \geq 0$, $= 0$ iff $P=Q$</p></div>
+<div class="box"><p><span class="b">Divergence Behavior</span>:</p></div>
+<div class="box"><p>KL(P||Q) : Mean-seeking (Covers the whole distribution)</p></div>
+<div class="box"><p>KL(P||Q) : Mode-seeking (Locks onto specific modes)</p></div>
+<div class="box"><h2 class="hl-g">Autoencoder</h2></div>
+<div class="box"><p><span class="b">Notes</span>:</p></div>
+<div class="box"><p>&bull; Bottleneck (L << D)</p></div>
+<div class="box"><p>&bull; Extract key features and reconstruct; equivalent to only taking <span class="b">rank(X) = L</span>.</p></div>
+<div class="box"><p>&bull; <span class="b">Formula</span>: $X W_1 W_2 = \hat{X}$</p></div>
+<div class="box"><p>&bull; $W_1 W_2 = W^* = \Gamma$</p></div>
+<div class="box"><p>&bull; $\Gamma$ is the <span class="b">largest L eigenvectors of $X^T X$</span>.</p></div>
 <div class='section-header'>12. Clustering</div>
-<h3>K-means: Objective (Distortion Measure)</h3>
-<p>&bull; <span class="b">Formula</span>:</p>
-<p>$$J(X, Z, \mu) = \sum_{i}^{N} \sum_{k}^{K} z_{ik} \|x_i - \mu_k\|^2$$</p>
-<p>&bull; <span class="b">Indicator Variable</span>:</p>
-<p>&bull; $z_i = \{0, 0, 1, 0, 0, 0\}$ implies sample $i$ belongs to class 3.</p>
-<h3>Lloyd's Algorithm (Alternating Optimization)</h3>
-<p>1. <span class="b">Initialize</span>: All centroids $\mu_i$.</p>
-<p>2. <span class="b">Assignment</span>: Assign cluster indicators based on the nearest neighbor.</p>
-<p>&bull; _(Note: Whichever centroid a point is closest to, it belongs to that cluster.)_</p>
-<p>3. <span class="b">Update</span>:</p>
-<p>&bull; $\mu_k = \frac{1}{N_k} \sum_{i}^{N} z_{ik} x_i$</p>
-<p>&bull; Where $N_k = \sum_{i}^{N} z_{ik}$</p>
-<p>4. <span class="b">Loop</span>: Repeat until convergence.</p>
-<h3>K-means ++</h3>
-<p>1. Randomly select one data point as $\mu_1$.</p>
-<p>2. Calculate the distance of the remaining points to it: $\|x_i - \mu_1\|^2$.</p>
-<p>3. Sample the next center point, with probability proportional to the distance size.</p>
-<p>4. Re-calculate $D_i^2 = \min \{ \|x_i - \mu_1\|^2, \|x_i - \mu_2\|^2, ... \}$.</p>
-<p>5. Repeat steps 3 and 4 until $K$ centers are chosen.</p>
-
-<div class='box'><h2 class='hl-p'>Gaussian Mixture Model (GMM)</h2><p><span class="b">Model Definition</span>:</p>
-<p>$$p(x|\theta) = \sum_z p(x|z, \theta)p(z|\theta)$$</p>
-<p>&bull; <span class="b">$z$ is latent variables</span></p>
-<p>&bull; <span class="b">Optimization Goal</span>: $\theta^* = \text{argmax}_{\theta} p(x|\theta)$</p>
-<p><span class="b">Distributions</span>:</p>
-<p>1. <span class="b">Prior</span>: $p(z|\theta) = \text{Cat}(\pi) \quad // \quad \{\pi_1, \pi_2, ..., \pi_K\}$</p>
-<p>&bull; Constraint: $\sum_{i}^K \pi_i = 1$</p>
-<p>2. <span class="b">Likelihood</span>: $p(x|z=k, \theta) = \mathcal{N}(x|\mu_k, \Sigma_k)$</p>
-<p><span class="b">Parameters</span>:</p>
-<p>Thus $\theta = \{\pi, \mu, \Sigma\}$</p>
-<p>&bull; <span class="b">$\pi$</span>: $k$ parameters (effectively $k-1$)</p>
-<p>&bull; <span class="b">$\mu \in \mathbb{R}^d$</span>: $k \cdot d$ parameters</p>
-<p>&bull; <span class="b">$\Sigma_k \in \mathbb{R}^{d \times d}$</span>: $k \cdot d^2$ parameters (or $k \cdot \frac{d(d+1)}{2}$ due to symmetry)</p>
-<h3>Using GMM as a Generative Model</h3>
-<p>1. <span class="b">Sample class</span> according to $\pi = (\pi_1, \pi_2, ..., \pi_K)$</p>
-<p>2. <span class="b">Generate $x$</span> according to $x \sim \mathcal{N}(\mu_k, \Sigma_k)$ (Probability Density)</p>
-<p><span class="b">Marginal Probability</span>:</p>
-<p>$$p(x|\pi, \mu, \Sigma) = \sum_i^K \pi_k \cdot \mathcal{N}(x|\mu_k, \Sigma_k)$$</p>
-<p><span class="b">Log-Likelihood</span>:</p>
-<p>$$\log p(X|\pi, \mu, \Sigma) = \sum_i^N \log \left( \sum_k^K \pi_k \cdot \mathcal{N}(x_i|\mu_k, \Sigma_k) \right)$$</p>
-<h3>Inference</h3>
-<p>Calculating the <span class="b">responsibility</span> of component $k$ for observation $i$:</p>
-<p>$$p(z_{ik}=1 | x_i, \pi, \mu, \Sigma) = \frac{\pi_k \mathcal{N}(x_i|\mu_k, \Sigma_k)}{\sum_j^K \pi_j \mathcal{N}(x_i|\mu_j, \Sigma_j)}$$</p>
-<p><span class="b">Notation</span>:</p>
-<p>$$\gamma(z_{ik}) = p(z_{ik}=1 | x_i, \pi, \mu, \Sigma)$$</p></div>
-<div class='box'><h2 class='hl-y'>Expectation Maximization (EM) for GMM</h2><p><span class="b">Learning Process</span>:</p>
-<p>1. <span class="b">Initialize</span>: $\pi^0, \mu_1^0...\mu_K^0, \Sigma_1^0...\Sigma_K^0$</p>
-<p>2. <span class="b">E-step (Expectation)</span>:</p>
-<p>Calculate the responsibility (posterior probability):</p>
-<p>$$\gamma_t(z_{ik}) = \frac{\pi_k^t \mathcal{N}(x_i|\mu_k^t, \Sigma_k^t)}{\sum_j^K \pi_j^t \mathcal{N}(x_i|\mu_j^t, \Sigma_j^t)}$$</p>
-<p>&bull; _Note_: E-step evaluates the posterior $p(z|x, \theta^t)$.</p>
-<p>3. <span class="b">M-step (Maximization)</span>:</p>
-<p>Update parameters to maximize expected joint probability:</p>
-<p>&bull; $\mu_k^{t+1} = \frac{1}{N_k} \sum_i^N \gamma_t(z_{ik}) x_i$</p>
-<p>&bull; $\Sigma_k^{t+1} = \frac{1}{N_k} \sum_i^N \gamma_t(z_{ik}) (x_i - \mu_k^{t+1})(x_i - \mu_k^{t+1})^T$</p>
-<p>&bull; $\pi_k^{t+1} = \frac{N_k}{N}$ where $N_k = \sum_i^N \gamma_t(z_{ik})$</p>
-<p>4. <span class="b">Repeat steps 2 and 3 until convergence</span></p>
-<p><span class="b">Theoretical Objective</span>:</p>
-<p>&bull; <span class="b">M-step Goal</span>: $\theta^{t+1} = \text{argmax}_\theta E_{z \sim p(z|x, \theta^t)} [\log p(X, z|\theta)]$</p>
-<p>&bull; <span class="b">Decomposition</span>: $\log p(X|\theta) = L(q, \theta) + KL(q || p(\cdot|X, \theta))$</p>
-<p>&bull; $\log p(X|\theta) \geq L(q, \theta)$ (Lower Bound)</p>
-<p>&bull; $L(q, \theta) = E_{z \sim q} [\log \frac{p(X, z|\theta)}{q(z)}] = \dots + H[q]$</p></div>
-<div class='box'><h2 class='hl-c'>Model Selection & Hierarchical Clustering</h2><p><span class="b">Choosing K (Number of Clusters)</span>:</p>
-<p><span class="b">1. Bayesian Information Criterion (BIC)</span></p>
-<p>&bull; <span class="b">Formula</span>: $BIC = M \log N - 2 \log \hat{L}$</p>
-<p>&bull; $M = K(1 + D + D^2)$ (Number of parameters)</p>
-<p>&bull; $N$: Sample size</p>
-<p>&bull; $\hat{L}$: Observed log-likelihood</p>
-<p>&bull; <span class="b">Goal</span>: Minimize BIC.</p>
-<p><span class="b">2. AIC (Akaike Information Criterion)</span></p>
-<p>&bull; <span class="b">Formula</span>: $AIC = 2M - 2 \log \hat{L}$</p>
-<p><span class="b">3. Agglomerative Clustering (Hierarchical)</span></p>
-<p>&bull; <span class="b">Method</span>: Merge clusters recursively.</p>
-<p>&bull; _Description_: Merge classes gradually based on distance.</p>
-<p>Plaintext</p>
-<pre>       +---+
-       |   |
-     +-+   |
-     | |   +---+
-     | |   |   |
-    {A B} {C} {D}  &lt;-- Merging from bottom up
-</pre></div>
+<div class="box"><h3>K-means: Objective (Distortion Measure)</h3></div>
+<div class="box"><p>&bull; <span class="b">Formula</span>:</p></div>
+<div class="box">    $$J(X, Z, \mu) = \sum_{i}^{N} \sum_{k}^{K} z_{ik} \|x_i - \mu_k\|^2$$</div>
+<div class="box"><p>&bull; <span class="b">Indicator Variable</span>:</p></div>
+<div class="box"><p>&bull; $z_i = \{0, 0, 1, 0, 0, 0\}$ implies sample $i$ belongs to class 3.</p></div>
+<div class="box"><h3>Lloyd's Algorithm (Alternating Optimization)</h3></div>
+<div class="box"><p>1. <span class="b">Initialize</span>: All centroids $\mu_i$.</p></div>
+<div class="box"><p>2. <span class="b">Assignment</span>: Assign cluster indicators based on the nearest neighbor.</p></div>
+<div class="box"><p>&bull; _(Note: Whichever centroid a point is closest to, it belongs to that cluster.)_</p></div>
+<div class="box"><p>3. <span class="b">Update</span>:</p></div>
+<div class="box"><p>&bull; $\mu_k = \frac{1}{N_k} \sum_{i}^{N} z_{ik} x_i$</p></div>
+<div class="box"><p>&bull; Where $N_k = \sum_{i}^{N} z_{ik}$</p></div>
+<div class="box"><p>4. <span class="b">Loop</span>: Repeat until convergence.</p></div>
+<div class="box"><h3>K-means ++</h3></div>
+<div class="box"><p>1. Randomly select one data point as $\mu_1$.</p></div>
+<div class="box"><p>2. Calculate the distance of the remaining points to it: $\|x_i - \mu_1\|^2$.</p></div>
+<div class="box"><p>3. Sample the next center point, with probability proportional to the distance size.</p></div>
+<div class="box"><p>4. Re-calculate $D_i^2 = \min \{ \|x_i - \mu_1\|^2, \|x_i - \mu_2\|^2, ... \}$.</p></div>
+<div class="box"><p>5. Repeat steps 3 and 4 until $K$ centers are chosen.</p></div>
+<div class="box"><h2 class="hl-p">Gaussian Mixture Model (GMM)</h2></div>
+<div class="box"><p><span class="b">Model Definition</span>:</p></div>
+<div class="box">$$p(x|\theta) = \sum_z p(x|z, \theta)p(z|\theta)$$</div>
+<div class="box"><p>&bull; <span class="b">$z$ is latent variables</span></p></div>
+<div class="box"><p>&bull; <span class="b">Optimization Goal</span>: $\theta^* = \text{argmax}_{\theta} p(x|\theta)$</p></div>
+<div class="box"><p><span class="b">Distributions</span>:</p></div>
+<div class="box"><p>1. <span class="b">Prior</span>: $p(z|\theta) = \text{Cat}(\pi) \quad // \quad \{\pi_1, \pi_2, ..., \pi_K\}$</p></div>
+<div class="box"><p>&bull; Constraint: $\sum_{i}^K \pi_i = 1$</p></div>
+<div class="box"><p>2. <span class="b">Likelihood</span>: $p(x|z=k, \theta) = \mathcal{N}(x|\mu_k, \Sigma_k)$</p></div>
+<div class="box"><p><span class="b">Parameters</span>:</p></div>
+<div class="box"><p>Thus $\theta = \{\pi, \mu, \Sigma\}$</p></div>
+<div class="box"><p>&bull; <span class="b">$\pi$</span>: $k$ parameters (effectively $k-1$)</p></div>
+<div class="box"><p>&bull; <span class="b">$\mu \in \mathbb{R}^d$</span>: $k \cdot d$ parameters</p></div>
+<div class="box"><p>&bull; <span class="b">$\Sigma_k \in \mathbb{R}^{d \times d}$</span>: $k \cdot d^2$ parameters (or $k \cdot \frac{d(d+1)}{2}$ due to symmetry)</p></div>
+<div class="box"><h3>Using GMM as a Generative Model</h3></div>
+<div class="box"><p>1. <span class="b">Sample class</span> according to $\pi = (\pi_1, \pi_2, ..., \pi_K)$</p></div>
+<div class="box"><p>2. <span class="b">Generate $x$</span> according to $x \sim \mathcal{N}(\mu_k, \Sigma_k)$ (Probability Density)</p></div>
+<div class="box"><p><span class="b">Marginal Probability</span>:</p></div>
+<div class="box">$$p(x|\pi, \mu, \Sigma) = \sum_i^K \pi_k \cdot \mathcal{N}(x|\mu_k, \Sigma_k)$$</div>
+<div class="box"><p><span class="b">Log-Likelihood</span>:</p></div>
+<div class="box">$$\log p(X|\pi, \mu, \Sigma) = \sum_i^N \log \left( \sum_k^K \pi_k \cdot \mathcal{N}(x_i|\mu_k, \Sigma_k) \right)$$</div>
+<div class="box"><h3>Inference</h3></div>
+<div class="box"><p>Calculating the <span class="b">responsibility</span> of component $k$ for observation $i$:</p></div>
+<div class="box">$$p(z_{ik}=1 | x_i, \pi, \mu, \Sigma) = \frac{\pi_k \mathcal{N}(x_i|\mu_k, \Sigma_k)}{\sum_j^K \pi_j \mathcal{N}(x_i|\mu_j, \Sigma_j)}$$</div>
+<div class="box"><p><span class="b">Notation</span>:</p></div>
+<div class="box">$$\gamma(z_{ik}) = p(z_{ik}=1 | x_i, \pi, \mu, \Sigma)$$</div>
+<div class="box"><h2 class="hl-y">Expectation Maximization (EM) for GMM</h2></div>
+<div class="box"><p><span class="b">Learning Process</span>:</p></div>
+<div class="box"><p>1. <span class="b">Initialize</span>: $\pi^0, \mu_1^0...\mu_K^0, \Sigma_1^0...\Sigma_K^0$</p></div>
+<div class="box"><p>2. <span class="b">E-step (Expectation)</span>:</p></div>
+<div class="box"><p>Calculate the responsibility (posterior probability):</p></div>
+<div class="box">    $$\gamma_t(z_{ik}) = \frac{\pi_k^t \mathcal{N}(x_i|\mu_k^t, \Sigma_k^t)}{\sum_j^K \pi_j^t \mathcal{N}(x_i|\mu_j^t, \Sigma_j^t)}$$</div>
+<div class="box"><p>&bull; <i>Note</i>: E-step evaluates the posterior $p(z|x, \theta^t)$.</p></div>
+<div class="box"><p>3. <span class="b">M-step (Maximization)</span>:</p></div>
+<div class="box"><p>Update parameters to maximize expected joint probability:</p></div>
+<div class="box"><p>&bull; $\mu_k^{t+1} = \frac{1}{N_k} \sum_i^N \gamma_t(z_{ik}) x_i$</p></div>
+<div class="box"><p>&bull; $\Sigma_k^{t+1} = \frac{1}{N_k} \sum_i^N \gamma_t(z_{ik}) (x_i - \mu_k^{t+1})(x_i - \mu_k^{t+1})^T$</p></div>
+<div class="box"><p>&bull; $\pi_k^{t+1} = \frac{N_k}{N}$ where $N_k = \sum_i^N \gamma_t(z_{ik})$</p></div>
+<div class="box"><p>4. <span class="b">Repeat steps 2 and 3 until convergence</span></p></div>
+<div class="box"><p><span class="b">Theoretical Objective</span>:</p></div>
+<div class="box"><p>&bull; <span class="b">M-step Goal</span>: $\theta^{t+1} = \text{argmax}_\theta E_{z \sim p(z|x, \theta^t)} [\log p(X, z|\theta)]$</p></div>
+<div class="box"><p>&bull; <span class="b">Decomposition</span>: $\log p(X|\theta) = L(q, \theta) + KL(q || p(\cdot|X, \theta))$</p></div>
+<div class="box"><p>&bull; $\log p(X|\theta) \geq L(q, \theta)$ (Lower Bound)</p></div>
+<div class="box"><p>&bull; $L(q, \theta) = E_{z \sim q} [\log \frac{p(X, z|\theta)}{q(z)}] = \dots + H[q]$</p></div>
+<div class="box"><h2 class="hl-c">Model Selection &amp; Hierarchical Clustering</h2></div>
+<div class="box"><p><span class="b">Choosing K (Number of Clusters)</span>:</p></div>
+<div class="box"><p><span class="b">1. Bayesian Information Criterion (BIC)</span></p></div>
+<div class="box"><p>&bull; <span class="b">Formula</span>: $BIC = M \log N - 2 \log \hat{L}$</p></div>
+<div class="box"><p>&bull; $M = K(1 + D + D^2)$ (Number of parameters)</p></div>
+<div class="box"><p>&bull; $N$: Sample size</p></div>
+<div class="box"><p>&bull; $\hat{L}$: Observed log-likelihood</p></div>
+<div class="box"><p>&bull; <span class="b">Goal</span>: Minimize BIC.</p></div>
+<div class="box"><p><span class="b">2. AIC (Akaike Information Criterion)</span></p></div>
+<div class="box"><p>&bull; <span class="b">Formula</span>: $AIC = 2M - 2 \log \hat{L}$</p></div>
+<div class="box"><p><span class="b">3. Agglomerative Clustering (Hierarchical)</span></p></div>
+<div class="box"><p>&bull; <span class="b">Method</span>: Merge clusters recursively from bottom up</p></div>
+<div class="box"><p>&bull; _Description_: Merge classes gradually based on distance.</p></div>
 <div class='section-header'>Misc</div>
-
-<div class='box'><h2 class='hl-g'>Convex Functions</h2><p><span class="b">Properties of Convex Functions</span>:</p>
-<p>1. $g(x) = g_1(x) + g_2(x)$ (Sum of convex functions is convex)</p>
-<p>2. $g(x) = \max \{ g_1(x), g_2(x) \}$ (Pointwise maximum is convex)</p>
-<p>3. $g(x) = c \cdot g_1(x)$ where $c \geq 0$ (Non-negative scaling)</p>
-<p>4. $g(x) = c \cdot f_1(x)$ where $c \leq 0$ and $f_1(x)$ is concave</p>
-<p>5. $g(x) = g_1(Ax + b)$ (Affine transformation)</p></div>
-<div class='box'><h2 class='hl-p'>Isotropic Gaussian & Priors</h2><p><span class="b">Isotropic Gaussian</span>:</p>
-<p>(Refers to Gaussian distributions with covariance proportional to identity, i.e., spherical)</p>
-<p><span class="b">Priors</span>:</p>
-<p>&bull; <span class="b">Laplace Prior</span>: $\exp(-\frac{\|w\|}{\lambda})$</p>
-<p>&bull; <span class="b">Gaussian Prior</span>: $\exp(-\frac{\|w\|^2}{2\sigma^2})$</p>
-<p><span class="b">Key Differences</span>:</p>
-<p>&bull; <span class="b">Laplace encourages sparsity</span> (results in sparse solutions, like L1 regularization).</p>
-<p>&bull; <span class="b">Gaussian</span> results in solutions around the <span class="b">mean</span> (like L2 regularization).</p>
-<p>&bull; <span class="b">Laplace</span> results in solutions around the <span class="b">median</span>.</p></div></div></div></body></html>
+<div class="box"><h2 class="hl-g">Gaussian</h2></div>
+<div class="box"><h3>Multivariate Gaussian PDF</h3></div>
+<div class="box">$$
+p(x | \mu, \Sigma) = \frac{1}{(2\pi)^{D/2} |\det(\Sigma)|^{1/2}} \exp\left(-\frac{1}{2} (x - \mu)^T \Sigma^{-1} (x - \mu)\right)$$</div>
+<div class="box"><h3>Isotropic Gaussian &amp; Priors</h3></div>
+<div class="box"><p><span class="b">Isotropic Gaussian</span>:</p></div>
+<div class="box"><p>(Refers to Gaussian distributions with covariance proportional to identity, i.e., spherical)</p></div>
+<div class="box"><p><span class="b">Priors</span>:</p></div>
+<div class="box"><p>&bull; <span class="b">Laplace Prior</span>: $\exp(-\frac{\|w\|}{\lambda})$</p></div>
+<div class="box"><p>&bull; <span class="b">Gaussian Prior</span>: $\exp(-\frac{\|w\|^2}{2\sigma^2})$</p></div>
+<div class="box"><p><span class="b">Key Differences</span>:</p></div>
+<div class="box"><p>&bull; <span class="b">Laplace encourages sparsity</span> (results in sparse solutions, like L1 regularization).</p></div>
+<div class="box"><p>&bull; <span class="b">L1 regularization</span> promotes sparsity, producing axis-aligned boundaries and effectively removing irrelevant dimensions by collapsing ellipsoid axes.</p></div>
+<div class="box"><p>&bull; <span class="b">Gaussian</span> results in solutions around the <span class="b">mean</span> (like L2 regularization).</p></div>
+<div class="box"><p>&bull; <span class="b">L2 regularization</span> reduces variance and is more resistant to outliers, leading to smoother decision boundaries and less eccentric ellipses</p></div>
+<div class="box"><p>&bull; <span class="b">Laplace</span> results in solutions around the <span class="b">median</span>.</p></div>
+<div class="box"><h3>(i) Spherical/Isotropic: $\Sigma = \sigma I$</h3></div>
+<div class="box"><p><span class="b">Matrix:</span> $\begin{pmatrix} \sigma & 0 \\ 0 & \sigma \end{pmatrix}$ | <span class="b">Constraints:</span> $A=D$, $B=C=0$ | <span class="b">Shape:</span> Circles</p></div>
+<div class="box"><p><span class="b">Boundary:</span> Shared→Linear (fails concentric) | Separate→Circular (handles donuts)</p></div>
+<div class="box"><p><span class="b">Use:</span> Round blobs</p></div>
+<div class="box"><h3>(iii) Diagonal: $\Sigma$ = diag</h3></div>
+<div class="box"><p><span class="b">Matrix:</span> $\begin{pmatrix} \sigma_x & 0 \\ 0 & \sigma_y \end{pmatrix}$ | <span class="b">Constraints:</span> $B=C=0$, $A\neq D$ ok | <span class="b">Shape:</span> Axis-aligned ellipses</p></div>
+<div class="box"><p><span class="b">Boundary:</span> Shared→Linear (fails concentric, = Naive Bayes) | Separate→Quadratic axis-aligned (handles concentric via tight-in-wide)</p></div>
+<div class="box"><p><span class="b">Use:</span> Axis-aligned clusters OR concentric tight/loose</p></div>
+<div class="box"><h3>(ii) Full/Unconstrained</h3></div>
+<div class="box"><p><span class="b">Matrix:</span> $\begin{pmatrix} a & b \\ b & d \end{pmatrix}$ | <span class="b">Constraints:</span> None | <span class="b">Shape:</span> Tilted ellipses</p></div>
+<div class="box"><p><span class="b">Boundary:</span> Shared→Linear (=LDA, fails concentric) | Separate→Quadratic (=QDA, handles all concentric/tilted)</p></div>
+<div class="box"><p><span class="b">Use:</span> Diagonal/tilted clusters OR tilted concentric</p></div>
+<div class="box"><p><span class="b">Global Rule:</span> Shared Cov = Linear (never concentric) | Separate Cov = Quadratic (solves concentric by enclosing)</p></div>
+<div class="box"><h2 class="hl-p">Calculus Rules</h2></div>
+<div class="box"><p>$\left(\frac{u}{v}\right)' = \frac{u'v - uv'}{v^2}$</p></div>
+<div class="box"><p>$\frac{d^n}{dx^n}a^x = a^x(\ln(a))^n$</p></div>
+<div class="box"><p>$\int a^x dx = \frac{a^x}{\ln(a)} + C$</p></div>
+<div class="box"><h2 class="hl-y">Inequality</h2></div>
+<div class="box"><p><span class="b">Jensen Ineq.</span>: $$\mathbb{E}[f(x)] \geq f(\mathbb{E}[x])$$</p></div>
+<div class="box"><p>Or in discrete summation notation for many points $x_1, x_2, \dots, x_n$ with weights $p_i$ that sum to 1:</p></div>
+<div class="box">$$\sum p_i f(x_i) \geq f\left(\sum p_i x_i\right)$$</div>
+<div class="box"><p><span class="b">Triangle Inequality</span>: $|a + b| \le |a| + |b|$.</p></div>
+<div class="box"><h2 class="hl-c">Statistics</h2></div>
+<div class="box"><p>&bull; $\text{Var}(X) = E(X^2) - [E(X)]^2$</p></div>
+<div class="box"><p>&bull; $\text{Var}(aX) = a^2\text{Var}(X)$ (squared!)</p></div>
+<div class="box"><p>&bull; $\text{Var}(X - Y) = \text{Var}(X) + \text{Var}(Y) - 2\text{Cov}(X,Y)$ (still plus Var(Y)!)</p></div>
+<div class="box"><p>&bull; If independent: $\text{Var}(X - Y) = \text{Var}(X) + \text{Var}(Y)$ (not minus!)</p></div>
+<div class="box"><p>&bull; $\text{Cov}(X,Y) = E(XY) - E(X)E(Y)$</p></div>
+<div class="box"><p>&bull; $E(XY) = E(X)E(Y)$ only if independent</p></div>
+<div class="box"><h2 class="hl-g">KKT Conditions</h2></div>
+<div class="box"><p><span class="b">Problem:</span> $\min_{x} f(x)$ s.t. $g_i(x) \leq 0, \; h_j(x) = 0$</p></div>
+<div class="box"><p><span class="b">Lagrangian:</span> $\mathcal{L}(x, \lambda, \nu) = f(x) + \sum_{i} \lambda_i g_i(x) + \sum_{j} \nu_j h_j(x)$</p></div>
+<div class="box"><p><span class="b">Five Conditions:</span></p></div>
+<div class="box"><p>1. <span class="b">Stationarity</span>: $\nabla_x \mathcal{L}(x^*, \lambda^*, \nu^*) = 0$</p></div>
+<div class="box"><p>2. <span class="b">Primal Feasibility</span>: $g_i(x^*) \leq 0, \; h_j(x^*) = 0$</p></div>
+<div class="box"><p>3. <span class="b">Dual Feasibility</span>: $\lambda_i \geq 0$</p></div>
+<div class="box"><p>4. <span class="b">Complementary Slackness</span>: $\lambda_i g_i(x^*) = 0$</p></div>
+<div class="box"><p>5. <span class="b">Constraint Qualification</span>: LICQ/Slater/MFCQ</p></div>
+<div class="box"><p><span class="b">Key Facts:</span></p></div>
+<div class="box"><p>&bull; Necessary: always (if CQ holds) | Sufficient: only if convex</p></div>
+<div class="box"><p>&bull; Active ($g_i(x^*) = 0$) → $\lambda_i \geq 0$ | Inactive ($g_i(x^*) < 0$) → $\lambda_i = 0$</p></div>
+<div class="box"><p><span class="b">Steps:</span> (1) Write $\mathcal{L}$ (2) Solve $\nabla_x \mathcal{L} = 0$ (3) Check cases (4) Verify all conditions</p></div>
+<div class="box"><h2 class="hl-p">Series</h2></div>
+<div class="box">$$
+\frac{1}{1 - z} = \sum_{n=0}^{\infty} z^n = 1 + z + z^2 + z^3 + \dots$$</div>
+<div class="box"> $$e^z = \sum_{n=0}^{\infty} \frac{z^n}{n!} = 1 + z + \frac{z^2}{2!} + \frac{z^3}{3!} + \dots$$</div>
+<div class="box"> $$
+(a + b)^d = \sum_{k=0}^{d} \binom{d}{k} a^{d-k} b^k$$</div>
+<div class="box"><p>$\binom{n}{k} = \frac{n!}{k!(n-k)!}$</p></div>
+<div class="box"><h2 class="hl-y">Linear Algebra</h2></div>
+<div class="box"><p><span class="b">PSD:</span> $\lambda \geq 0$, $x^TAx \geq 0$, $\det(A) \geq 0$, symmetric</p></div>
+<div class="box"><p><span class="b">Invertible:</span> $\lambda \neq 0$, $\det(A) \neq 0$, full rank, $Ax=b$ unique</p></div>
+<div class="box"><p><span class="b">PD (both):</span> $\lambda > 0$, $x^TAx > 0$, invertible + PSD</p></div>
+<div class="box"><p>&bull; Trace Tricks: $\frac{\partial \operatorname{Tr}(AB)}{\partial A} = B^T$ ; $\text{tr}(\mathbf{A}\mathbf{B}\mathbf{C}) = \text{tr}(\mathbf{B}\mathbf{C}\mathbf{A}) = \text{tr}(\mathbf{C}\mathbf{A}\mathbf{B})$ ; $\text{tr}(\mathbf{A}) = \text{tr}(\mathbf{A}^T)$</p></div>
+<div class="box"><p>&bull; Sandwich Rule: If you see $(\mathbf{x} - \mathbf{a})^T \mathbf{M} (\mathbf{x} - \mathbf{a})$ where $\mathbf{M}$ is symmetric, you can instantly rewrite it as:$\mathbf{x}^T \mathbf{M} \mathbf{x} - 2\mathbf{x}^T \mathbf{M} \mathbf{a} + \mathbf{a}^T \mathbf{M} \mathbf{a}$; Deriv is $2\mathbf{M}\mathbf{x}$</p></div>
+<div class="box"><p>&bull; In Linear Algebra, the <span class="b">Determinant</span> of a matrix is the product of its eigenvalues:</p></div></div></div></body></html>
